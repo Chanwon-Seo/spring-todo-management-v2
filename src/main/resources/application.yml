@@ -30,3 +30,13 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   #org.hibernate.type: trace
+
+---
+spring:
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      MAX-file-size: 1MB
+
+file:
+  dir: /Users/chanwon/Downloads/test/
