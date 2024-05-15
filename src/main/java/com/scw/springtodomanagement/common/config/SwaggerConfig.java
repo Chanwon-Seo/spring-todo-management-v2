@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
         tags = {
                 @Tag(name = "01. Test", description = "Start APIs"),
                 @Tag(name = "02. Post", description = "해야 할 일 APIs"),
+                @Tag(name = "03. Image", description = "이미지 APIs"),
         }
 )
 public class SwaggerConfig {
