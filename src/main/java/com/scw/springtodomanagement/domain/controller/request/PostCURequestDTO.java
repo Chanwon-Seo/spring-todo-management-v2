@@ -1,6 +1,6 @@
-package com.scw.springtodomanagement.controller.request;
+package com.scw.springtodomanagement.domain.controller.request;
 
-import com.scw.springtodomanagement.entity.Post;
+import com.scw.springtodomanagement.domain.entity.Post;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.entity.enums;
+package com.scw.springtodomanagement.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,11 @@
-package com.scw.springtodomanagement.service;
+package com.scw.springtodomanagement.domain.service;
 
-import com.scw.springtodomanagement.controller.request.PostCURequestDTO;
-import com.scw.springtodomanagement.controller.request.PostDRequestDTO;
-import com.scw.springtodomanagement.controller.response.PostResponseDTO;
-import com.scw.springtodomanagement.entity.Post;
-import com.scw.springtodomanagement.entity.enums.DomainType;
-import com.scw.springtodomanagement.repository.PostRepository;
+import com.scw.springtodomanagement.domain.controller.request.PostCURequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostDRequestDTO;
+import com.scw.springtodomanagement.domain.controller.response.PostResponseDTO;
+import com.scw.springtodomanagement.domain.entity.enums.DomainType;
+import com.scw.springtodomanagement.domain.repository.PostRepository;
+import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;

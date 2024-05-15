@@ -1,10 +1,10 @@
-package com.scw.springtodomanagement.controller;
+package com.scw.springtodomanagement.domain.controller;
 
 import com.scw.springtodomanagement.common.global.response.RestApiResponse;
-import com.scw.springtodomanagement.controller.request.PostCURequestDTO;
-import com.scw.springtodomanagement.controller.request.PostDRequestDTO;
-import com.scw.springtodomanagement.controller.response.PostResponseDTO;
-import com.scw.springtodomanagement.service.PostService;
+import com.scw.springtodomanagement.domain.controller.request.PostCURequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostDRequestDTO;
+import com.scw.springtodomanagement.domain.controller.response.PostResponseDTO;
+import com.scw.springtodomanagement.domain.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

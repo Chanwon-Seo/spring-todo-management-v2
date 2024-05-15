@@ -1,6 +1,6 @@
-package com.scw.springtodomanagement.entity;
+package com.scw.springtodomanagement.domain.entity;
 
-import com.scw.springtodomanagement.controller.request.PostCURequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostCURequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

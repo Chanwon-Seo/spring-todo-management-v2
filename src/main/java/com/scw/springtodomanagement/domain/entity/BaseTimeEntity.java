@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.entity;
+package com.scw.springtodomanagement.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

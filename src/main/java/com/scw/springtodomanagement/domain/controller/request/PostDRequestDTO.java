@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.controller.request;
+package com.scw.springtodomanagement.domain.controller.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

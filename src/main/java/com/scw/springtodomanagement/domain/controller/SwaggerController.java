@@ -1,5 +1,5 @@
 
-package com.scw.springtodomanagement.controller;
+package com.scw.springtodomanagement.domain.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
