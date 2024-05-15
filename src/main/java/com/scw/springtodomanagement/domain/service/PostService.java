@@ -1,5 +1,7 @@
 package com.scw.springtodomanagement.domain.service;
 
+import com.scw.springtodomanagement.common.errorcode.PostErrorCode;
+import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.domain.controller.request.PostCURequestDTO;
 import com.scw.springtodomanagement.domain.controller.request.PostDRequestDTO;
 import com.scw.springtodomanagement.domain.controller.response.PostResponseDTO;
@@ -88,7 +90,7 @@ public class PostService {
      */
     private void passwordValidation(String inputPassword, String findPassword) {
         if (!inputPassword.equals(findPassword)) {
-            throw new IllegalArgumentException("일치하지 않는 비밀번호입니다.");
+            throw new ApiException(PostErrorCode.PASSWORD_VERIFY_FAIL);
         }
     }
 

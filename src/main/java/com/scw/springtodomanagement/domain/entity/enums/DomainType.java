@@ -1,5 +1,7 @@
 package com.scw.springtodomanagement.domain.entity.enums;
 
+import com.scw.springtodomanagement.common.errorcode.PostErrorCode;
+import com.scw.springtodomanagement.common.exception.ApiException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +28,7 @@ public enum DomainType {
                 return;
             }
         }
-        throw new IllegalArgumentException(inputDomainData + "는 지원하지 않는 이메일입니다.");
+        throw new ApiException(PostErrorCode.UNSUPPORTED_EMAIL_DOMAIN);
     }
 
 }
