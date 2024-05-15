@@ -31,4 +31,8 @@ public class RestApiResponse<T> {
         return new RestApiResponse<>(true, code, message, null);
     }
 
+    public static <T> RestApiResponse<T> of(String message, T data) {
+        return new RestApiResponse<>(true, 200, message, data);
+    }
+
 }
