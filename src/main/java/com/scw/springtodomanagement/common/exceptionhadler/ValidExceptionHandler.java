@@ -23,7 +23,7 @@ public class ValidExceptionHandler {
      * 유효성 검사에서 예외가 발생
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> validException(MethodArgumentNotValidException e) {
+    protected ResponseEntity<ErrorResponse> validException(MethodArgumentNotValidException e) {
         log.error("[MethodArgumentNotValidException] cause : {}, message : {} ", NestedExceptionUtils.getMostSpecificCause(e),e.getMessage());
 
         ConcurrentHashMap<Object, Object> validationMessage = new ConcurrentHashMap<>();
