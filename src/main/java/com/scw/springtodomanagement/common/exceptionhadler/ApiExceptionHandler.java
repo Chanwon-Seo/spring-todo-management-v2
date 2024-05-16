@@ -17,7 +17,7 @@ public class ApiExceptionHandler {
      * Api 요청에 동작 중 예외가 발생한 경우
      */
     @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ErrorResponse> apiException(ApiException e) {
+    protected ResponseEntity<ErrorResponse> apiException(ApiException e) {
         log.error("", e);
 
         ErrorCode errorCode = e.getErrorCode();

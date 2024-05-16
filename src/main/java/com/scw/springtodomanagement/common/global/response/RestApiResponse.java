@@ -1,7 +1,6 @@
 package com.scw.springtodomanagement.common.global.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.scw.springtodomanagement.domain.controller.response.PostResponseDTO;
 import lombok.Getter;
 
 @Getter
