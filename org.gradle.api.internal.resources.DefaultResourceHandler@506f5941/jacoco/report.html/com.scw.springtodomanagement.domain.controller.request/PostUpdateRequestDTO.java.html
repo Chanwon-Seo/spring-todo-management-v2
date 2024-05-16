@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostUpdateRequestDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-todo-management</a> &gt; <a href="index.source.html" class="el_package">com.scw.springtodomanagement.domain.controller.request</a> &gt; <span class="el_source">PostUpdateRequestDTO.java</span></div><h1>PostUpdateRequestDTO.java</h1><pre class="source lang-java linenums">package com.scw.springtodomanagement.domain.controller.request;
+
+import com.scw.springtodomanagement.domain.entity.Post;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import org.hibernate.validator.constraints.Length;
+
+@Getter
+<span class="pc" id="L12">@Builder</span>
+<span class="fc" id="L13">@AllArgsConstructor</span>
+@Schema(name = &quot;Post Request DTO&quot;)
+public class PostUpdateRequestDTO {
+
+    @Schema(description = &quot;제목&quot;, example = &quot;2024-05-16 해야 할 일&quot;)
+    @NotBlank(message = &quot;제목의 입력 값이 없습니다.&quot;)
+    @Length(max = 200, message = &quot;제목의 입력 범위를 초과하였습니다.&quot;)
+<span class="fc" id="L20">    private String title;</span>
+
+    @Schema(description = &quot;내용&quot;, example = &quot;알고리즘 풀기&quot;)
+    @NotBlank(message = &quot;내용의 입력 값이 없습니다.&quot;)
+    @Length(max = 255, message = &quot;내용의 입력 범위를 초과하였습니다.&quot;)
+<span class="fc" id="L25">    private String content;</span>
+
+    @Schema(description = &quot;이메일&quot;, example = &quot;test@gmail.com&quot;)
+    @Email(regexp = &quot;^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$&quot;,
+            message = &quot;이메일 형식에 맞지 않습니다.&quot;)
+    @NotBlank(message = &quot;이메일의 입력 값이 없습니다.&quot;)
+    @Length(max = 255, message = &quot;이메일 입력 범위를 초과하였습니다.&quot;)
+<span class="fc" id="L32">    private String managerEmail;</span>
+
+    @Schema(description = &quot;비밀번호&quot;, example = &quot;1234asdf@&quot;)
+    @Pattern(regexp = &quot;^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$&quot;,
+            message = &quot;비밀번호는 영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.&quot;)
+    @NotBlank(message = &quot;비밀번호의 입력 값이 없습니다.&quot;)
+    @Length(min = 8, max = 200, message = &quot;비밀번호 입력 조건을 맞춰주세요&quot;)
+<span class="fc" id="L39">    private String password;</span>
+
+    public Post toPostDomain() {
+<span class="fc" id="L42">        return Post.builder()</span>
+<span class="fc" id="L43">                .title(title)</span>
+<span class="fc" id="L44">                .content(content)</span>
+<span class="fc" id="L45">                .managerEmail(managerEmail)</span>
+<span class="fc" id="L46">                .password(password)</span>
+<span class="fc" id="L47">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

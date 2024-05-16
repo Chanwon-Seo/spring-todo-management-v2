@@ -37,6 +37,3 @@ spring:
     multipart:
       max-request-size: 10MB
       MAX-file-size: 1MB
-
-file:
-  dir: /Users/chanwon/Downloads/test/

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public enum DomainType {
-    GOOGLE("google.com"),
+    GAMIL("gmail.com"),
     NAVER("naver.com"),
     GITHUB("github.com"),
 

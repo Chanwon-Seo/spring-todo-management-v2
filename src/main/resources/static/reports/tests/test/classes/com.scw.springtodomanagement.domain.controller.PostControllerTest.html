@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - PostControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>PostControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.scw.springtodomanagement.domain.controller.html">com.scw.springtodomanagement.domain.controller</a> &gt; PostControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.384s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">87%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="findPostById()"></a>
+<h3 class="failures">특정 포스트 조회 성공</h3>
+<span class="code">
+<pre>java.lang.AssertionError: JSON path &quot;$.data.managerEmail&quot; expected:&lt;test@google.com&gt; but was:&lt;test@gmail.com&gt;
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:123)
+	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.lambda$value$2(JsonPathResultMatchers.java:111)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at com.scw.springtodomanagement.domain.controller.PostControllerTest.findPostById(PostControllerTest.java:81)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">게시글 등록 - 성공</td>
+<td class="success">createPost()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">게시글 등록 - 실패 요청 정보 없음 [전체 미입력]</td>
+<td class="success">createPostAllNull()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">게시글 등록 - 실패  문제 [제목 미입력]</td>
+<td class="success">createPostTitleNull()</td>
+<td class="success">0.305s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">게시글 삭제 - 성공</td>
+<td class="success">deletePost()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">게시글 다건 조회 - 성공</td>
+<td class="success">findAll()</td>
+<td class="success">0.031s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">특정 포스트 조회 성공</td>
+<td class="failures">findPostById()</td>
+<td class="failures">0.012s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">게시글 등록 - 제목의 길이가 초과 될 경우</td>
+<td class="success">passwordNotEqualsException()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">게시글 수정 - 성공</td>
+<td class="success">updatePost()</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>03:40:13.454 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.scw.springtodomanagement.domain.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+03:40:13.594 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.scw.springtodomanagement.SpringTodoManagementApplication for test class com.scw.springtodomanagement.domain.controller.PostControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2024-05-17T03:40:14.000+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] c.s.s.d.controller.PostControllerTest    : Starting PostControllerTest using Java 17.0.10 with PID 50580 (started by chanwon in /Users/chanwon/Documents/spring-todo-management)
+2024-05-17T03:40:14.001+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] c.s.s.d.controller.PostControllerTest    : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-05-17T03:40:16.047+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-05-17T03:40:16.047+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-05-17T03:40:16.050+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2024-05-17T03:40:16.079+09:00  INFO 50580 --- [spring-todo-management] [    Test worker] c.s.s.d.controller.PostControllerTest    : Started PostControllerTest in 2.429 seconds (process running for 3.496)
+2024-05-17T03:40:16.323+09:00 ERROR 50580 --- [spring-todo-management] [    Test worker] c.s.s.c.e.ValidExceptionHandler          : [MethodArgumentNotValidException] cause : org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO): [Field error in object 'postCreateRequestDTO' on field 'title': rejected value []; codes [NotBlank.postCreateRequestDTO.title,NotBlank.title,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title]]; default message [제목의 입력 값이 없습니다.]] , message : Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO): [Field error in object 'postCreateRequestDTO' on field 'title': rejected value []; codes [NotBlank.postCreateRequestDTO.title,NotBlank.title,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title]]; default message [제목의 입력 값이 없습니다.]]  
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/posts
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;85&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#createPost(PostCreateRequestDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:false,&quot;code&quot;:400,&quot;message&quot;:&quot;올바르지 않은 요청 정보입니다.&quot;,&quot;data&quot;:{&quot;title&quot;:&quot;제목의 입력 값이 없습니다.&quot;}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = PUT
+      Request URI = /api/v1/posts/1
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;94&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#updatePost(Long, PostUpdateRequestDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:true,&quot;code&quot;:200,&quot;message&quot;:&quot;성공&quot;}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2024-05-17T03:40:16.445+09:00 ERROR 50580 --- [spring-todo-management] [    Test worker] c.s.s.c.e.ValidExceptionHandler          : [MethodArgumentNotValidException] cause : org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO) with 7 errors: [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [Pattern.postCreateRequestDTO.password,Pattern.password,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password],[Ljakarta.validation.constraints.Pattern$Flag;@229d5d14,^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$]; default message [비밀번호는 영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.]] [Field error in object 'postCreateRequestDTO' on field 'managerEmail': rejected value []; codes [NotBlank.postCreateRequestDTO.managerEmail,NotBlank.managerEmail,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.managerEmail,managerEmail]; arguments []; default message [managerEmail]]; default message [이메일의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [Length.postCreateRequestDTO.password,Length.password,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password],200,8]; default message [비밀번호 입력 조건을 맞춰주세요]] [Field error in object 'postCreateRequestDTO' on field 'title': rejected value []; codes [NotBlank.postCreateRequestDTO.title,NotBlank.title,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title]]; default message [제목의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [NotBlank.postCreateRequestDTO.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password]]; default message [비밀번호의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'managerEmail': rejected value []; codes [Email.postCreateRequestDTO.managerEmail,Email.managerEmail,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.managerEmail,managerEmail]; arguments []; default message [managerEmail],[Ljakarta.validation.constraints.Pattern$Flag;@40957c86,^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$]; default message [이메일 형식에 맞지 않습니다.]] [Field error in object 'postCreateRequestDTO' on field 'content': rejected value []; codes [NotBlank.postCreateRequestDTO.content,NotBlank.content,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.content,content]; arguments []; default message [content]]; default message [내용의 입력 값이 없습니다.]] , message : Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO) with 7 errors: [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [Pattern.postCreateRequestDTO.password,Pattern.password,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password],[Ljakarta.validation.constraints.Pattern$Flag;@229d5d14,^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$]; default message [비밀번호는 영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.]] [Field error in object 'postCreateRequestDTO' on field 'managerEmail': rejected value []; codes [NotBlank.postCreateRequestDTO.managerEmail,NotBlank.managerEmail,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.managerEmail,managerEmail]; arguments []; default message [managerEmail]]; default message [이메일의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [Length.postCreateRequestDTO.password,Length.password,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password],200,8]; default message [비밀번호 입력 조건을 맞춰주세요]] [Field error in object 'postCreateRequestDTO' on field 'title': rejected value []; codes [NotBlank.postCreateRequestDTO.title,NotBlank.title,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title]]; default message [제목의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'password': rejected value []; codes [NotBlank.postCreateRequestDTO.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.password,password]; arguments []; default message [password]]; default message [비밀번호의 입력 값이 없습니다.]] [Field error in object 'postCreateRequestDTO' on field 'managerEmail': rejected value []; codes [Email.postCreateRequestDTO.managerEmail,Email.managerEmail,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.managerEmail,managerEmail]; arguments []; default message [managerEmail],[Ljakarta.validation.constraints.Pattern$Flag;@40957c86,^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$]; default message [이메일 형식에 맞지 않습니다.]] [Field error in object 'postCreateRequestDTO' on field 'content': rejected value []; codes [NotBlank.postCreateRequestDTO.content,NotBlank.content,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.content,content]; arguments []; default message [content]]; default message [내용의 입력 값이 없습니다.]]  
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/posts
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;57&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#createPost(PostCreateRequestDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:false,&quot;code&quot;:400,&quot;message&quot;:&quot;올바르지 않은 요청 정보입니다.&quot;,&quot;data&quot;:{&quot;managerEmail&quot;:&quot;이메일 형식에 맞지 않습니다.&quot;,&quot;password&quot;:&quot;비밀번호의 입력 값이 없습니다.&quot;,&quot;title&quot;:&quot;제목의 입력 값이 없습니다.&quot;,&quot;content&quot;:&quot;내용의 입력 값이 없습니다.&quot;}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2024-05-17T03:40:16.453+09:00 ERROR 50580 --- [spring-todo-management] [    Test worker] c.s.s.c.e.ValidExceptionHandler          : [MethodArgumentNotValidException] cause : org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO): [Field error in object 'postCreateRequestDTO' on field 'title': rejected value [123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901]; codes [Length.postCreateRequestDTO.title,Length.title,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title],200,0]; default message [제목의 입력 범위를 초과하였습니다.]] , message : Validation failed for argument [0] in public org.springframework.http.ResponseEntity&lt;com.scw.springtodomanagement.common.global.response.RestApiResponse&lt;com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO&gt;&gt; com.scw.springtodomanagement.domain.controller.PostController.createPost(com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO): [Field error in object 'postCreateRequestDTO' on field 'title': rejected value [123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901]; codes [Length.postCreateRequestDTO.title,Length.title,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [postCreateRequestDTO.title,title]; arguments []; default message [title],200,0]; default message [제목의 입력 범위를 초과하였습니다.]]  
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/posts
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;286&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#createPost(PostCreateRequestDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:false,&quot;code&quot;:400,&quot;message&quot;:&quot;올바르지 않은 요청 정보입니다.&quot;,&quot;data&quot;:{&quot;title&quot;:&quot;제목의 입력 범위를 초과하였습니다.&quot;}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/v1/posts/1
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#findPostById(Long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:true,&quot;code&quot;:200,&quot;message&quot;:&quot;성공&quot;,&quot;data&quot;:{&quot;id&quot;:1,&quot;title&quot;:&quot;제목&quot;,&quot;content&quot;:&quot;내용&quot;,&quot;managerEmail&quot;:&quot;test@gmail.com&quot;,&quot;createdAt&quot;:null,&quot;lastModifiedAt&quot;:null}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/posts
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;91&quot;]
+             Body = &lt;no character encoding set&gt;
+    Session Attrs = {}
+
+Handler:
+             Type = com.scw.springtodomanagement.domain.controller.PostController
+           Method = com.scw.springtodomanagement.domain.controller.PostController#createPost(PostCreateRequestDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Content-Type:&quot;application/json&quot;]
+     Content type = application/json
+             Body = {&quot;success&quot;:true,&quot;code&quot;:201,&quot;message&quot;:&quot;성공&quot;}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.7</a> at 2024. 5. 17. 오전 3:40:20</p>
+</div>
+</div>
+</body>
+</html>
