@@ -10,6 +10,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        log.error("[Exception] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
+        log.error("[handleMethodArgumentTypeMismatchException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
 
         ErrorCode errorCode = CommonErrorCode.BAD_REQUEST;
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, null);
@@ -34,9 +35,19 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity handleHttpRequestMethodNotSupportedException(MethodArgumentTypeMismatchException e) {
-        log.error("[Exception] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
+        log.error("[handleHttpRequestMethodNotSupportedException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
 
         ErrorCode errorCode = CommonErrorCode.METHOD_NOT_ALLOWED;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, null);
+
+        return ResponseEntity.status(errorResponse.getCode())
+                .body(errorResponse);
+    }
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity handleNoResourceFoundException(NoResourceFoundException e) {
+        log.error("[NoResourceFoundException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
+
+        ErrorCode errorCode = CommonErrorCode.NOT_FOUND;
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, null);
 
         return ResponseEntity.status(errorResponse.getCode())
