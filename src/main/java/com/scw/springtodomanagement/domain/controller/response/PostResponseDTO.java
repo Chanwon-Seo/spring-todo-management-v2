@@ -17,7 +17,7 @@ public class PostResponseDTO {
 
     private String content;
 
-    private String manager;
+    private String managerEmail;
 
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
@@ -26,7 +26,7 @@ public class PostResponseDTO {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.manager = post.getManagerEmail();
+        this.managerEmail = post.getManagerEmail();
         this.createdAt = post.getCreatedAt();
         this.lastModifiedAt = post.getLastModifiedAt();
     }

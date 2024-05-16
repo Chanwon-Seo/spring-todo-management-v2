@@ -103,7 +103,7 @@ public class PostService {
                 .id(savePostData.getId())
                 .title(savePostData.getTitle())
                 .content(savePostData.getContent())
-                .manager(savePostData.getManagerEmail())
+                .managerEmail(savePostData.getManagerEmail())
                 .createdAt(savePostData.getCreatedAt())
                 .lastModifiedAt(savePostData.getLastModifiedAt())
                 .build();
