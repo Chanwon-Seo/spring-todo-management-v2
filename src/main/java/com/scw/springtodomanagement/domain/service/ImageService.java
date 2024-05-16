@@ -62,9 +62,7 @@ public class ImageService {
 
     public Resource downloadImage(String UUIDFilename) throws IOException {
         Image findImage = imageRepository.findByExtractFilenameOrElseThrow(UUIDFilename);
-        String projectPath = System.getProperty("user.dir");
 
-        log.info("test = {} ", projectPath);
         Path filePath = Paths.get(getFullPath(findImage.getExtractFilename()));
 
         return new InputStreamResource(Files.newInputStream(filePath));
