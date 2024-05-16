@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-todo-management</a> &gt; <a href="index.source.html" class="el_package">com.scw.springtodomanagement.domain.controller</a> &gt; <span class="el_source">PostController.java</span></div><h1>PostController.java</h1><pre class="source lang-java linenums">package com.scw.springtodomanagement.domain.controller;
+
+import com.scw.springtodomanagement.common.global.response.RestApiResponse;
+import com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.service.PostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.scw.springtodomanagement.common.errorcode.StatusCode.*;
+
+@Tag(name = &quot;02. Post&quot;)
+<span class="fc" id="L24">@Slf4j</span>
+@RestController
+<span class="fc" id="L26">@RequiredArgsConstructor</span>
+@RequestMapping(&quot;/api/v1/posts&quot;)
+public class PostController {
+
+    private final PostService postService;
+
+    @Operation(summary = &quot;게시글 등록&quot;, description = &quot;게시글을 등록하기 위한 Api\nschema에 있는 정보는 모두 필수 값이어야 합니다.&quot;)
+    @PostMapping
+    public ResponseEntity&lt;RestApiResponse&lt;PostCreateResponseDTO&gt;&gt; createPost(
+            @Valid @RequestBody PostCreateRequestDTO requestDTO
+    ) {
+<span class="fc" id="L37">        PostCreateResponseDTO savePost = postService.createPost(requestDTO);</span>
+
+<span class="fc" id="L39">        return ResponseEntity.status(CREATED.code)</span>
+<span class="fc" id="L40">                .body(RestApiResponse.of(CREATED.code, savePost));</span>
+    }
+
+    @Operation(summary = &quot;게시글 단건 조회&quot;, description = &quot;게시글 단건 조회를 위한 Api\n요청 파라미터는 필수 값이어야 합니다.&quot;)
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;RestApiResponse&lt;PostReadResponseDTO&gt;&gt; findPostById(
+            @PathVariable Long id
+    ) {
+<span class="fc" id="L48">        PostReadResponseDTO findPost = postService.findPostById(id);</span>
+
+<span class="fc" id="L50">        return ResponseEntity.status(OK.code)</span>
+<span class="fc" id="L51">                .body(RestApiResponse.of(findPost));</span>
+    }
+
+    @Operation(summary = &quot;게시글 다건 조회&quot;, description = &quot;게시글 다건 조회를 위한 Api\n별도의 요청 파라미터는 없습니다. 작성일 기준으로 내림차순 됩니다.&quot;)
+    @GetMapping
+    public ResponseEntity&lt;RestApiResponse&lt;List&lt;PostReadResponseDTO&gt;&gt;&gt; findAll() {
+<span class="fc" id="L57">        List&lt;PostReadResponseDTO&gt; findAllPost = postService.findAll();</span>
+
+<span class="fc" id="L59">        return ResponseEntity.status(OK.code)</span>
+<span class="fc" id="L60">                .body(RestApiResponse.of(findAllPost));</span>
+    }
+
+    @Operation(summary = &quot;게시글 수정&quot;, description = &quot;게시글 수정을 위한 Api\nschema에 있는 정보는 모두 필수 값이어야 합니다.&quot;)
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;RestApiResponse&lt;PostUpdateResponseDTO&gt;&gt; updatePost(
+            @PathVariable Long id,
+            @Valid @RequestBody PostUpdateRequestDTO requestDTO
+    ) {
+<span class="fc" id="L69">        PostUpdateResponseDTO updatePost = postService.updatePost(id, requestDTO);</span>
+<span class="fc" id="L70">        return ResponseEntity.status(OK.code)</span>
+<span class="fc" id="L71">                .body(RestApiResponse.of(updatePost));</span>
+    }
+
+    @Operation(summary = &quot;게시글 삭제&quot;, description = &quot;게시글 삭제를 위한 Api\n요청 파라미터는 필수 값이어야 합니다.&quot;)
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;RestApiResponse&lt;Object&gt;&gt; deletePost(
+            @PathVariable Long id,
+            @RequestBody PostDeleteRequestDTO requestDTO
+    ) {
+<span class="fc" id="L80">        postService.deletePost(id, requestDTO);</span>
+
+<span class="fc" id="L82">        return ResponseEntity.status(OK.code)</span>
+<span class="fc" id="L83">                .body(RestApiResponse.of(&quot;삭제되엇습니다.&quot;));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

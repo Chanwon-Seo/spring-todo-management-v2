@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommonErrorCode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-todo-management</a> &gt; <a href="index.source.html" class="el_package">com.scw.springtodomanagement.common.errorcode</a> &gt; <span class="el_source">CommonErrorCode.java</span></div><h1>CommonErrorCode.java</h1><pre class="source lang-java linenums">package com.scw.springtodomanagement.common.errorcode;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+<span class="fc" id="L7">@Getter</span>
+<span class="fc" id="L8">@RequiredArgsConstructor</span>
+public enum CommonErrorCode implements ErrorCode {
+<span class="fc" id="L10">    INVALID_ARGUMENT_ERROR(StatusCode.BAD_REQUEST.code, &quot;올바르지 않은 파라미터입니다.&quot;),</span>
+<span class="fc" id="L11">    BAD_REQUEST(StatusCode.BAD_REQUEST.code, &quot;올바르지 않은 요청 정보입니다.&quot;),</span>
+<span class="fc" id="L12">    NOT_FOUND(StatusCode.BAD_REQUEST.code, &quot;올바르지 않은 요청 URL입니다.&quot;),</span>
+<span class="fc" id="L13">    SERVER_ERROR(StatusCode.INTERNAL_SERVER_ERROR.code, &quot;서버 에러입니다.&quot;),</span>
+<span class="fc" id="L14">    METHOD_NOT_ALLOWED(StatusCode.METHOD_NOT_ALLOWED.code, &quot;올바르지 않는 요청 메소드입니다.&quot;);</span>
+
+<span class="fc" id="L16">    private final Integer httpStatusCode;</span>
+<span class="fc" id="L17">    private final String description;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
