@@ -1,6 +1,7 @@
 package com.scw.springtodomanagement.common.global.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.scw.springtodomanagement.domain.controller.response.PostResponseDTO;
 import lombok.Getter;
 
 @Getter
@@ -26,13 +27,11 @@ public class RestApiResponse<T> {
     public static <T> RestApiResponse<T> of(String message) {
         return new RestApiResponse<>(true, 200, message, null);
     }
-
-    public static <T> RestApiResponse<T> of(int code, String message) {
-        return new RestApiResponse<>(true, code, message, null);
-    }
-
     public static <T> RestApiResponse<T> of(String message, T data) {
         return new RestApiResponse<>(true, 200, message, data);
     }
 
+    public static <T> RestApiResponse<T> of(int code, T data) {
+        return new RestApiResponse<>(true, code, "성공", data);
+    }
 }

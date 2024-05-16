@@ -31,8 +31,8 @@ public class PostController {
     ) {
         PostResponseDTO savePost = postService.createPost(requestDTO);
 
-        return ResponseEntity.status(OK.code)
-                .body(RestApiResponse.of(savePost));
+        return ResponseEntity.status(CREATED.code)
+                .body(RestApiResponse.of(CREATED.code, savePost));
     }
 
     @GetMapping("/{id}")
