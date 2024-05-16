@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDRequestDTO {
+public class PostDeleteRequestDTO {
 
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$",
             message = "비밀번호는 영문, 숫자, 특수문자 조합 8자리 이상이어야 합니다.")

@@ -1,6 +1,6 @@
 package com.scw.springtodomanagement.domain.entity;
 
-import com.scw.springtodomanagement.domain.controller.request.PostCURequestDTO;
+import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class Post extends BaseTimeEntity {
         this.password = password;
     }
 
-    public void updateTitle(PostCURequestDTO requestDTO) {
+    public void updateTitle(PostUpdateRequestDTO requestDTO) {
         this.title = requestDTO.getTitle();
         this.content = requestDTO.getContent();
         this.managerEmail = requestDTO.getManagerEmail();
