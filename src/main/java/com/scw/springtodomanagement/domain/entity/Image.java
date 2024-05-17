@@ -23,4 +23,7 @@ public class Image {
     @Column(nullable = false)
     private String extractFilename;
 
+    public void updateExtractFilename(String extractFilename) {
+        this.extractFilename = extractFilename;
+    }
 }

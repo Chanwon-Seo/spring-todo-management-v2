@@ -43,8 +43,8 @@ public class ImageService {
 
         ImageExtensionType.fromFileExtension(extractExtension);
 
-        String uuidFilename = createFilename(extractExtension);
-        requestDTO.getImageFile().transferTo(new File(getFullPath(uuidFilename)));
+        String uuidFilename = createFilename();
+        requestDTO.getImageFile().transferTo(new File(getFullPath(uuidFilename + "." + extractExtension)));
 
         Image newImageData = Image.builder()
                 .originalFilename(originalFilename)
@@ -62,19 +62,26 @@ public class ImageService {
 
     public Resource downloadImage(String UUIDFilename) throws IOException {
         Image findImage = imageRepository.findByExtractFilenameOrElseThrow(UUIDFilename);
+        String extractExtension = extractExt(findImage.getOriginalFilename());
+
+        findImage.updateExtractFilename(findImage.getExtractFilename() + "." + extractExtension);
 
         Path filePath = Paths.get(getFullPath(findImage.getExtractFilename()));
 
         return new InputStreamResource(Files.newInputStream(filePath));
     }
 
+    public String findByExtractFilename(String UUIDFilename) {
+        Image findImage = imageRepository.findByExtractFilenameOrElseThrow(UUIDFilename);
+        return extractExt(findImage.getOriginalFilename());
+    }
+
     public String getFullPath(String filename) {
         return System.getProperty("user.dir") + "/src/main/resources/image/" + filename;
     }
 
-    private String createFilename(String extractExtension) {
-        String uuid = UUID.randomUUID().toString();
-        return uuid + "." + extractExtension;
+    private String createFilename() {
+        return UUID.randomUUID().toString();
     }
 
     private String extractExt(String originalFileName) {
