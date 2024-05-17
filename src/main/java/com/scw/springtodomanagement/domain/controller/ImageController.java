@@ -54,13 +54,15 @@ public class ImageController {
             @ApiResponse(responseCode = "400", description = "1. 등록된 이미지 정보가 아닌 경우",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
-    @GetMapping("/download/{UUIDFilename:.+}")
+    @GetMapping("/download/{UUIDFilename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String UUIDFilename) throws IOException {
         Resource resource = imageService.downloadImage(UUIDFilename);
 
+        String extract = imageService.findByExtractFilename(UUIDFilename);
+
         return ResponseEntity.status(StatusCode.OK.code)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + UUIDFilename + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + UUIDFilename + "." + extract + "\"")
                 .body(resource);
     }
 

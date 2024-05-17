@@ -30,7 +30,7 @@ public class InitDB {
             save(
                     Image.builder()
                             .originalFilename("test.png")
-                            .extractFilename("0e040ae5-24bf-45e5-8b9d-ddbcad6e6d65.png")
+                            .extractFilename("0e040ae5-24bf-45e5-8b9d-ddbcad6e6d65")
                             .build()
             );
         }
