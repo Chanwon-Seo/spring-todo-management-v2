@@ -78,7 +78,7 @@ public class PostService {
 
     /**
      * update
-     * throw 게시물 여부 검증
+     * throw 게시물 여부 검증능
      * throw 도메인 검증 { google, naver, github}
      */
     @Transactional
