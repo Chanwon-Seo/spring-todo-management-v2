@@ -1,6 +1,7 @@
 package com.scw.springtodomanagement.domain.controller.request;
 
 import com.scw.springtodomanagement.domain.entity.Post;
+import com.scw.springtodomanagement.domain.entity.enums.StateType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -46,6 +47,7 @@ public class PostCreateRequestDTO {
                 .content(content)
                 .managerEmail(managerEmail)
                 .password(password)
+                .stateType(StateType.ENABLE)
                 .build();
     }
 }

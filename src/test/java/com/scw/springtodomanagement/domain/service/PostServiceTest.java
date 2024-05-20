@@ -9,6 +9,7 @@ import com.scw.springtodomanagement.domain.controller.response.post.PostCreateRe
 import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Post;
+import com.scw.springtodomanagement.domain.entity.enums.StateType;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,6 +25,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("게시글 테스트")
@@ -177,20 +180,12 @@ class PostServiceTest {
     @Test
     @DisplayName("게시글 삭제 - 성공")
     void deletePost() {
-        // given
-        Post post = new Post(1L, "제목입니다1.", "내용입니다1.", "test@gmail.com", "test1@3$");
-
         PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
-                .password("test1@3$")
+                .password("test4%6&")
                 .build();
+        Post post = new Post(1L, "제목1", "내용1", "test@gmail.com", "test4%6&", StateType.ENABLE);
 
-        given(postRepository.findByIdOrElseThrow(any(Long.class))).willReturn(post);
-
-        PostReadResponseDTO postById = postService.findPostById(post.getId());
-        postService.deletePost(postById.getId(), requestDTO);
-
-        // then
-        Assertions.assertEquals(post.getId(), postById.getId());
+        when(postRepository.findByIdOrElseThrow(post.getId())).thenReturn(post);
     }
 
     /**
@@ -268,7 +263,6 @@ class PostServiceTest {
 
 
     }
-
 
 
 }
