@@ -78,7 +78,7 @@ class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.title").value("제목"))
                 .andExpect(jsonPath("$.data.content").value("내용"))
-                .andExpect(jsonPath("$.data.managerEmail").value("test@google.com"));
+                .andExpect(jsonPath("$.data.managerEmail").value("test@gmail.com"));
     }
 
 
