@@ -9,6 +9,7 @@ import com.scw.springtodomanagement.domain.controller.response.post.PostCreateRe
 import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.enums.DomainType;
+import com.scw.springtodomanagement.domain.entity.enums.StateType;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.scw.springtodomanagement.common.errorcode.PostErrorCode.POST_ALREADY_DELETED;
 
 @Service
 @Slf4j
@@ -52,6 +55,7 @@ public class PostService {
      */
     public PostReadResponseDTO findPostById(Long id) {
         Post findPostData = postRepository.findByIdOrElseThrow(id);
+
         return PostReadResponseDTO.builder()
                 .id(findPostData.getId())
                 .title(findPostData.getTitle())
@@ -67,7 +71,7 @@ public class PostService {
      * 작성일 기준 내림차순
      */
     public List<PostReadResponseDTO> findAll() {
-        return postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")).stream()
+        return postRepository.findAllByStateTypeOrderByCreatedAtDesc(StateType.ENABLE).stream()
                 .map(PostReadResponseDTO::new)
                 .toList();
     }
@@ -104,9 +108,13 @@ public class PostService {
     public void deletePost(Long id, PostDeleteRequestDTO requestDTO) {
         Post findPostData = postRepository.findByIdOrElseThrow(id);
 
+        if (findPostData.getStateType().equals(StateType.DISABLE)) {
+            throw new ApiException(POST_ALREADY_DELETED);
+        }
+
         passwordValidation(requestDTO.getPassword(), findPostData.getPassword());
 
-        postRepository.delete(findPostData);
+        findPostData.deleteTitle(StateType.DISABLE);
     }
 
     /**
