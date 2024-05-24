@@ -2,10 +2,10 @@ package com.scw.springtodomanagement.domain.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostDeleteRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -140,6 +140,7 @@ class PostControllerTest {
     void deletePost() throws Exception {
         // Given
         Long postId = 1L; // 삭제할 게시글의 ID
+
         PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
                 .password("1234asdf")
                 .build();

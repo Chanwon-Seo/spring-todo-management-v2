@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.domain.controller.response.post;
+package com.scw.springtodomanagement.domain.dto.response.post;
 
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.AllArgsConstructor;
@@ -31,4 +31,14 @@ public class PostUpdateResponseDTO {
         this.lastModifiedAt = post.getLastModifiedAt();
     }
 
+    public static PostUpdateResponseDTO of(final Post findPostData) {
+        return PostUpdateResponseDTO.builder()
+                .id(findPostData.getId())
+                .title(findPostData.getTitle())
+                .content(findPostData.getContent())
+                .managerEmail(findPostData.getManagerEmail())
+                .createdAt(findPostData.getCreatedAt())
+                .lastModifiedAt(findPostData.getLastModifiedAt())
+                .build();
+    }
 }

@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.domain.controller.request;
+package com.scw.springtodomanagement.domain.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

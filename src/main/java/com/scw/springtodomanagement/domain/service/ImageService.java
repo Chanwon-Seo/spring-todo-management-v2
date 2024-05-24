@@ -2,8 +2,8 @@ package com.scw.springtodomanagement.domain.service;
 
 import com.scw.springtodomanagement.common.errorcode.ImageErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.domain.controller.request.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.domain.dto.request.ImageRequestDTO;
+import com.scw.springtodomanagement.domain.dto.response.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Image;
 import com.scw.springtodomanagement.domain.entity.enums.ImageExtensionType;
 import com.scw.springtodomanagement.domain.repository.ImageRepository;

@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.domain.controller.response.image;
+package com.scw.springtodomanagement.domain.dto.response.image;
 
 import lombok.Builder;
 import lombok.Getter;

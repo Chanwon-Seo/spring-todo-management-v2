@@ -1,14 +1,13 @@
 package com.scw.springtodomanagement.domain.controller;
 
-import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.global.response.RestApiResponse;
-import com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostDeleteRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostCreateResponseDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

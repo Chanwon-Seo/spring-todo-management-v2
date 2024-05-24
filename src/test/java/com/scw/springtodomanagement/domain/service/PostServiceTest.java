@@ -2,12 +2,12 @@ package com.scw.springtodomanagement.domain.service;
 
 import com.scw.springtodomanagement.common.errorcode.PostErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostDeleteRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.dto.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostCreateResponseDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.dto.response.post.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Post;
 import com.scw.springtodomanagement.domain.entity.enums.StateType;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
@@ -25,7 +25,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,9 +53,9 @@ class PostServiceTest {
         Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.getTitle())
-                .content(requestDTO.getContent())
-                .managerEmail(requestDTO.getManagerEmail())
+                .title(requestDTO.title())
+                .content(requestDTO.content())
+                .managerEmail(requestDTO.managerEmail())
 //                .createdAt()
 //                .lastModifiedAt()
                 .build();
@@ -88,9 +87,9 @@ class PostServiceTest {
         Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.getTitle())
-                .content(requestDTO.getContent())
-                .managerEmail(requestDTO.getManagerEmail())
+                .title(requestDTO.title())
+                .content(requestDTO.content())
+                .managerEmail(requestDTO.managerEmail())
 //                .createdAt()
 //                .lastModifiedAt()
                 .build();
