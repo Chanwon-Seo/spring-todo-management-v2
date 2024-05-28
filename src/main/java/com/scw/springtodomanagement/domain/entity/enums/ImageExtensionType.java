@@ -1,6 +1,6 @@
 package com.scw.springtodomanagement.domain.entity.enums;
 
-import com.scw.springtodomanagement.common.errorcode.ImageErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.ImageErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

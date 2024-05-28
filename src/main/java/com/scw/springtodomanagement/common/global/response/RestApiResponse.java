@@ -26,11 +26,16 @@ public class RestApiResponse<T> {
     public static <T> RestApiResponse<T> of(String message) {
         return new RestApiResponse<>(true, 200, message, null);
     }
+
     public static <T> RestApiResponse<T> of(String message, T data) {
         return new RestApiResponse<>(true, 200, message, data);
     }
 
     public static <T> RestApiResponse<T> of(int code, T data) {
         return new RestApiResponse<>(true, code, "성공", data);
+    }
+
+    public static <T> RestApiResponse<T> of(int code, String message) {
+        return new RestApiResponse<>(true, code, message, null);
     }
 }

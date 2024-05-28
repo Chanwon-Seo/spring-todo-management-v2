@@ -1,15 +1,15 @@
 package com.scw.springtodomanagement.domain.service;
 
-import com.scw.springtodomanagement.common.errorcode.PostErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.PostErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.domain.dto.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.dto.request.PostDeleteRequestDTO;
-import com.scw.springtodomanagement.domain.dto.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.dto.response.post.PostCreateResponseDTO;
-import com.scw.springtodomanagement.domain.dto.response.post.PostReadResponseDTO;
-import com.scw.springtodomanagement.domain.dto.response.post.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Post;
-import com.scw.springtodomanagement.domain.entity.enums.StateType;
+import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -53,9 +53,9 @@ class PostServiceTest {
         Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.title())
-                .content(requestDTO.content())
-                .managerEmail(requestDTO.managerEmail())
+                .title(requestDTO.getTitle())
+                .content(requestDTO.getContent())
+                .managerEmail(requestDTO.getManagerEmail())
 //                .createdAt()
 //                .lastModifiedAt()
                 .build();
@@ -87,9 +87,9 @@ class PostServiceTest {
         Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.title())
-                .content(requestDTO.content())
-                .managerEmail(requestDTO.managerEmail())
+                .title(requestDTO.getTitle())
+                .content(requestDTO.getContent())
+                .managerEmail(requestDTO.getManagerEmail())
 //                .createdAt()
 //                .lastModifiedAt()
                 .build();
@@ -182,7 +182,7 @@ class PostServiceTest {
         PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
                 .password("test4%6&")
                 .build();
-        Post post = new Post(1L, "제목1", "내용1", "test@gmail.com", "test4%6&", StateType.ENABLE);
+        Post post = new Post(1L, "제목1", "내용1", "test@gmail.com", "test4%6&", PostStateType.ENABLE);
 
         when(postRepository.findByIdOrElseThrow(post.getId())).thenReturn(post);
     }

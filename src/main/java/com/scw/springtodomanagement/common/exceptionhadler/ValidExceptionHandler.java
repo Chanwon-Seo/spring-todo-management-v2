@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.scw.springtodomanagement.common.errorcode.CommonErrorCode.BAD_REQUEST;
+import static com.scw.springtodomanagement.common.exception.errorcode.CommonErrorCode.BAD_REQUEST;
 
 @Slf4j
 @Order(1)

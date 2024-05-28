@@ -1,7 +1,8 @@
 package com.scw.springtodomanagement.domain.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scw.springtodomanagement.domain.dto.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageController;
+import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.service.ImageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class ImageControllerTest {
                 .downloadURL("http://localhost:8080/api/v1/image/download/" + uuid)
                 .build();
 
-        when(imageService.uploadImage(any())).thenReturn(responseDTO);
+        when(imageService.save(any())).thenReturn(responseDTO);
 
         // when, then
         mockMvc.perform(multipart("/api/v1/image/upload")

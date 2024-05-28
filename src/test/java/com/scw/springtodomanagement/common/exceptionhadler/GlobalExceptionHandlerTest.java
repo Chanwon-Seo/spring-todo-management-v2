@@ -1,8 +1,8 @@
 package com.scw.springtodomanagement.common.exceptionhadler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scw.springtodomanagement.domain.controller.PostController;
-import com.scw.springtodomanagement.domain.dto.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.PostController;
+import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
 import com.scw.springtodomanagement.domain.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

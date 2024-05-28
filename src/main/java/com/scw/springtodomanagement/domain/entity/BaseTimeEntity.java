@@ -15,11 +15,9 @@ public abstract class BaseTimeEntity {
 
     @Column(updatable = false)
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastModifiedAt;
 
 }
