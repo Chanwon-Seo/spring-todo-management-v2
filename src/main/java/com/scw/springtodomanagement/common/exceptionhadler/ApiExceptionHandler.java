@@ -1,9 +1,10 @@
 package com.scw.springtodomanagement.common.exceptionhadler;
 
-import com.scw.springtodomanagement.common.exception.errorcode.ErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.common.exception.global.GlobalDuplicateException;
+import com.scw.springtodomanagement.common.exception.errorcode.ErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.commend.CommendUnauthorizedException;
 import com.scw.springtodomanagement.common.exception.post.PostUnauthorizedException;
+import com.scw.springtodomanagement.common.exception.user.LoginUserNotFoundException;
 import com.scw.springtodomanagement.common.exception.user.MemberDuplicateException;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -50,5 +51,25 @@ public class ApiExceptionHandler {
                 .body(ErrorResponse.of(errorCode));
     }
 
+    @ExceptionHandler(CommendUnauthorizedException.class)
+    protected ResponseEntity<ErrorResponse> commendUnauthorizedException(CommendUnauthorizedException e) {
 
+        String name = e.getClass().getSimpleName();
+        log.error("CommendUnauthorizedException 해당 클래스입니다. {}", name);
+
+        ErrorCode errorCode = e.getErrorCode();
+        return ResponseEntity.status(errorCode.getHttpStatusCode())
+                .body(ErrorResponse.of(errorCode));
+    }
+
+    @ExceptionHandler(LoginUserNotFoundException.class)
+    protected ResponseEntity<ErrorResponse> loginUserNotFoundException(LoginUserNotFoundException e) {
+
+        String name = e.getClass().getSimpleName();
+        log.error("LoginUserNotFoundException 해당 클래스입니다. {}", name);
+
+        ErrorCode errorCode = e.getErrorCode();
+        return ResponseEntity.status(errorCode.getHttpStatusCode())
+                .body(ErrorResponse.of(errorCode));
+    }
 }
