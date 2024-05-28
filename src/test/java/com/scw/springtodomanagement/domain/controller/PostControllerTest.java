@@ -4,7 +4,6 @@ package com.scw.springtodomanagement.domain.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scw.springtodomanagement.domain.controller.post.*;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.service.PostService;

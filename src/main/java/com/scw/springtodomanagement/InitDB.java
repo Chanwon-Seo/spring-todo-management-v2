@@ -41,9 +41,9 @@ public class InitDB {
             );
             save(
                     Member.builder()
-                            .nickName("서찬투투투")
-                            .userName("test@gmail.com")
-                            .password(passwordEncoder.encode("test1234"))
+                            .nickName("새로운닉네임")
+                            .userName("newUser@gmail.com")
+                            .password(passwordEncoder.encode("sparta1234!"))
                             .memberRoleType(MemberRoleType.USER)
                             .build()
             );

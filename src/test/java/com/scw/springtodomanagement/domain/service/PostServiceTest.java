@@ -3,11 +3,11 @@ package com.scw.springtodomanagement.domain.service;
 import com.scw.springtodomanagement.common.exception.errorcode.PostErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.entity.Member;
 import com.scw.springtodomanagement.domain.entity.Post;
 import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,24 +48,19 @@ class PostServiceTest {
         PostCreateRequestDTO requestDTO = PostCreateRequestDTO.builder()
                 .title("제목입니다1.")
                 .content("내용입니다.")
-                .managerEmail("test@gmail.com")
-                .password("test1@3$")
                 .build();
-        Post postDomain = requestDTO.toPostDomain();
+//        Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.getTitle())
-                .content(requestDTO.getContent())
-                .managerEmail(requestDTO.getManagerEmail())
-//                .createdAt()
-//                .lastModifiedAt()
+                .title(requestDTO.title())
+                .content(requestDTO.content())
                 .build();
 
 
-        given(postRepository.save(any(Post.class))).willReturn(postDomain);
+//        given(postRepository.save(any(Post.class))).willReturn(postDomain);
 
         // when
-        PostCreateResponseDTO newResponseDto = postService.createPost(requestDTO);
+        PostCreateResponseDTO newResponseDto = postService.createPost(requestDTO, "username");
 
         // then
         Assertions.assertEquals(originResponseDto.getId(), newResponseDto.getId());
@@ -80,21 +76,18 @@ class PostServiceTest {
         PostCreateRequestDTO requestDTO = PostCreateRequestDTO.builder()
                 .title("제목입니다1.")
                 .content("내용입니다.")
-                .managerEmail("test@gmail.com")
-                .password("test1@3$")
                 .build();
 
-        Post postDomain = requestDTO.toPostDomain();
+//        Post postDomain = requestDTO.toPostDomain();
 
         PostCreateResponseDTO originResponseDto = PostCreateResponseDTO.builder()
-                .title(requestDTO.getTitle())
-                .content(requestDTO.getContent())
-                .managerEmail(requestDTO.getManagerEmail())
+                .title(requestDTO.title())
+                .content(requestDTO.content())
 //                .createdAt()
 //                .lastModifiedAt()
                 .build();
 
-        given(postRepository.findByIdOrElseThrow(any(Long.class))).willReturn(postDomain);
+//        given(postRepository.findByIdOrElseThrow(any(Long.class))).willReturn(postDomain);
 
         // when
         PostReadResponseDTO newResponseDto = postService.findPostById(1L);
@@ -125,12 +118,12 @@ class PostServiceTest {
                 Post.builder()
                         .title("제목입니다1.")
                         .content("내용입니다1.")
-                        .managerEmail("test1@gmail.com")
+//                        .managerEmail("test1@gmail.com")
                         .build(),
                 Post.builder()
                         .title("제목입니다2.")
                         .content("내용입니다2.")
-                        .managerEmail("test2@gmail.com")
+//                        .managerEmail("test2@gmail.com")
                         .build()
         );
 
@@ -154,8 +147,6 @@ class PostServiceTest {
         PostUpdateRequestDTO requestDTO = PostUpdateRequestDTO.builder()
                 .title("수정 제목입니다1.")
                 .content("수정 내용입니다1.")
-                .managerEmail("test@gmail.com")
-                .password("test4%6&")
                 .build();
 
         PostUpdateResponseDTO originResponseDto = PostUpdateResponseDTO.builder()
@@ -167,7 +158,7 @@ class PostServiceTest {
         given(postRepository.findByIdOrElseThrow(any(Long.class))).willReturn(requestDTO.toPostDomain());
 
         // when
-        PostUpdateResponseDTO newResponseDto = postService.updatePost(1L, requestDTO);
+        PostUpdateResponseDTO newResponseDto = postService.updatePost(1L, requestDTO, "test@gmail.com");
 
         // then
         Assertions.assertEquals(originResponseDto.getId(), newResponseDto.getId());
@@ -179,10 +170,12 @@ class PostServiceTest {
     @Test
     @DisplayName("게시글 삭제 - 성공")
     void deletePost() {
-        PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
-                .password("test4%6&")
+        Member build = Member.builder()
+                .userName("username")
+                .nickName("nickname")
+                .password("123123123asfasdfasdf")
                 .build();
-        Post post = new Post(1L, "제목1", "내용1", "test@gmail.com", "test4%6&", PostStateType.ENABLE);
+        Post post = new Post(1L, "제목1", "내용1", build, PostStateType.ENABLE);
 
         when(postRepository.findByIdOrElseThrow(post.getId())).thenReturn(post);
     }
@@ -214,22 +207,18 @@ class PostServiceTest {
         PostUpdateRequestDTO originalRequestDTO = PostUpdateRequestDTO.builder()
                 .title("제목입니다1.")
                 .content("내용입니다1.")
-                .managerEmail("test@gmail.com")
-                .password("test1@3$")
                 .build();
 
         PostUpdateRequestDTO newRequestDTO = PostUpdateRequestDTO.builder()
                 .title("수정 제목입니다1.")
                 .content("수정 내용입니다1.")
-                .managerEmail("test@gmail.com")
-                .password("nonononoo")
                 .build();
 
         given(postRepository.findByIdOrElseThrow(any(Long.class))).willReturn(originalRequestDTO.toPostDomain());
 
         // when
         ApiException exception = assertThrows(ApiException.class, () ->
-                postService.updatePost(1L, newRequestDTO)
+                postService.updatePost(1L, newRequestDTO, "test@gmail.com")
         );
 
         Assertions.assertEquals(
@@ -245,13 +234,11 @@ class PostServiceTest {
         PostCreateRequestDTO requestDTO2 = PostCreateRequestDTO.builder()
                 .title("제목입니다1.")
                 .content("내용입니다.")
-                .managerEmail("test@ttt.com")
-                .password("test1@3$")
                 .build();
 
         // when
         ApiException exception = assertThrows(ApiException.class, () ->
-                postService.createPost(requestDTO2)
+                postService.createPost(requestDTO2, "username")
         );
 
         // then
