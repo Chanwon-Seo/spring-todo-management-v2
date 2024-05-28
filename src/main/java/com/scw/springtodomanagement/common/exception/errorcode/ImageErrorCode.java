@@ -1,5 +1,6 @@
-package com.scw.springtodomanagement.common.errorcode;
+package com.scw.springtodomanagement.common.exception.errorcode;
 
+import com.scw.springtodomanagement.common.statuscode.StatusCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

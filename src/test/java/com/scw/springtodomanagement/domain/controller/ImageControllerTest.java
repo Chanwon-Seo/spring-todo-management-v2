@@ -1,10 +1,9 @@
 package com.scw.springtodomanagement.domain.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scw.springtodomanagement.domain.controller.request.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageController;
+import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.service.ImageService;
-import com.scw.springtodomanagement.domain.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,16 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
-import static java.lang.reflect.Array.get;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -58,7 +53,7 @@ class ImageControllerTest {
                 .downloadURL("http://localhost:8080/api/v1/image/download/" + uuid)
                 .build();
 
-        when(imageService.uploadImage(any())).thenReturn(responseDTO);
+        when(imageService.save(any())).thenReturn(responseDTO);
 
         // when, then
         mockMvc.perform(multipart("/api/v1/image/upload")

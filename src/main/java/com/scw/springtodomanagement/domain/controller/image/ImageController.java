@@ -1,11 +1,11 @@
-package com.scw.springtodomanagement.domain.controller;
+package com.scw.springtodomanagement.domain.controller.image;
 
 
-import com.scw.springtodomanagement.common.errorcode.StatusCode;
+import com.scw.springtodomanagement.common.statuscode.StatusCode;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.global.response.RestApiResponse;
-import com.scw.springtodomanagement.domain.controller.request.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageRequestDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -42,7 +42,7 @@ public class ImageController {
     public ResponseEntity<RestApiResponse<ImageResponseDTO>> saveItem(
             @ModelAttribute ImageRequestDTO requestDTO) throws IOException {
 
-        ImageResponseDTO responseDTO = imageService.uploadImage(requestDTO);
+        ImageResponseDTO responseDTO = imageService.save(requestDTO);
 
         return ResponseEntity.status(StatusCode.OK.code)
                 .body(RestApiResponse.of("아래 링크에서 확인하세요", responseDTO));
@@ -56,7 +56,7 @@ public class ImageController {
     })
     @GetMapping("/download/{UUIDFilename}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String UUIDFilename) throws IOException {
-        Resource resource = imageService.downloadImage(UUIDFilename);
+        Resource resource = imageService.findById(UUIDFilename);
 
         String extract = imageService.findByExtractFilename(UUIDFilename);
 

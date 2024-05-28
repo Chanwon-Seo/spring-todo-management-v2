@@ -1,14 +1,14 @@
-package com.scw.springtodomanagement.domain.controller;
+package com.scw.springtodomanagement.domain.controller.post;
 
-import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.global.response.RestApiResponse;
-import com.scw.springtodomanagement.domain.controller.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.request.PostDeleteRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostCreateResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostReadResponseDTO;
-import com.scw.springtodomanagement.domain.controller.response.post.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.common.security.AuthenticationUser;
+import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,11 +20,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.scw.springtodomanagement.common.errorcode.StatusCode.*;
+import static com.scw.springtodomanagement.common.statuscode.StatusCode.*;
 
 @Tag(name = "02. Post")
 @Slf4j
@@ -44,9 +45,10 @@ public class PostController {
     })
     @PostMapping
     public ResponseEntity<RestApiResponse<PostCreateResponseDTO>> createPost(
+            @AuthenticationPrincipal AuthenticationUser authenticationUser,
             @Valid @RequestBody PostCreateRequestDTO requestDTO
     ) {
-        PostCreateResponseDTO savePost = postService.createPost(requestDTO);
+        PostCreateResponseDTO savePost = postService.createPost(requestDTO, authenticationUser.getUsername());
 
         return ResponseEntity.status(CREATED.code)
                 .body(RestApiResponse.of(CREATED.code, savePost));

@@ -1,11 +1,8 @@
-package com.scw.springtodomanagement.domain.controller.request;
+package com.scw.springtodomanagement.domain.controller.post.request;
 
 import com.scw.springtodomanagement.domain.entity.Post;
-import com.scw.springtodomanagement.domain.entity.enums.StateType;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @AllArgsConstructor
 @Schema(name = "Post Request DTO")
-public class PostCreateRequestDTO {
+public class PostUpdateRequestDTO {
 
     @Schema(description = "제목", example = "2024-05-16 해야 할 일")
     @NotBlank(message = "제목의 입력 값이 없습니다.")
@@ -47,7 +44,6 @@ public class PostCreateRequestDTO {
                 .content(content)
                 .managerEmail(managerEmail)
                 .password(password)
-                .stateType(StateType.ENABLE)
                 .build();
     }
 }

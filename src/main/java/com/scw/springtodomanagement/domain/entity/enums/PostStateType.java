@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum StateType {
+public enum PostStateType {
 
     ENABLE("enable"),
     DISABLE("disable"),

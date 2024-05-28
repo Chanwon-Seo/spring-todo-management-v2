@@ -1,11 +1,11 @@
 package com.scw.springtodomanagement.common.exceptionhadler;
 
-import com.scw.springtodomanagement.common.errorcode.CommonErrorCode;
-import com.scw.springtodomanagement.common.errorcode.ErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.CommonErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.ErrorCode;
+import com.scw.springtodomanagement.common.exception.global.GlobalDuplicateException;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NestedExceptionUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,6 +43,9 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    /**
+     * 지원하지 않는 API 요청인 경우
+     */
     @ExceptionHandler(NoResourceFoundException.class)
     protected ResponseEntity handleNoResourceFoundException(NoResourceFoundException e) {
         log.error("[handleNoResourceFoundException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
@@ -51,6 +54,17 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(errorResponse.getCode())
                 .body(errorResponse);
+    }
+
+    @ExceptionHandler(GlobalDuplicateException.class)
+    protected ResponseEntity<ErrorResponse> globalDuplicateException(GlobalDuplicateException e) {
+
+        String name = e.getClass().getSimpleName();
+        log.error("GlobalDuplicateException해당 클래스입니다. {}", name);
+
+        ErrorCode errorCode = e.getErrorCode();
+        return ResponseEntity.status(errorCode.getHttpStatusCode())
+                .body(ErrorResponse.of(errorCode));
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.scw.springtodomanagement.domain.entity.enums;
 
-import com.scw.springtodomanagement.common.errorcode.PostErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.PostErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

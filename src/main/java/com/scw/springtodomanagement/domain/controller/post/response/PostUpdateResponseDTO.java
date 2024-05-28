@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.domain.controller.response.post;
+package com.scw.springtodomanagement.domain.controller.post.response;
 
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.AllArgsConstructor;

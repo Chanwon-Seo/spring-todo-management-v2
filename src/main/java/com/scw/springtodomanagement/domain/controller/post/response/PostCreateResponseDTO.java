@@ -1,4 +1,4 @@
-package com.scw.springtodomanagement.domain.controller.response.post;
+package com.scw.springtodomanagement.domain.controller.post.response;
 
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @Builder
-public class PostReadResponseDTO {
+public class PostCreateResponseDTO {
     private Long id;
 
     private String title;
@@ -22,7 +22,7 @@ public class PostReadResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
-    public PostReadResponseDTO(Post post) {
+    public PostCreateResponseDTO(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
