@@ -1,9 +1,9 @@
 package com.scw.springtodomanagement.domain.service;
 
-import com.scw.springtodomanagement.common.errorcode.ImageErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.ImageErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.domain.controller.request.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageRequestDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.repository.ImageRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -52,7 +52,7 @@ class ImageServiceTest {
                 .build();
 
         // when
-        ImageResponseDTO imageResponseDTO = imageService.uploadImage(requestDTO);
+        ImageResponseDTO imageResponseDTO = imageService.save(requestDTO);
 
         // then
         String fullPath = imageService.getFullPath(imageResponseDTO.getUUIDFileName());
@@ -112,7 +112,7 @@ class ImageServiceTest {
 
         // when
         ApiException exception = assertThrows(ApiException.class, () ->
-                imageService.uploadImage(requestDTO)
+                imageService.save(requestDTO)
         );
 
         Assertions.assertEquals(

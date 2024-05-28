@@ -1,6 +1,6 @@
 package com.scw.springtodomanagement.common.global.response;
 
-import com.scw.springtodomanagement.common.errorcode.ErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.ErrorCode;
 import lombok.Getter;
 
 @Getter

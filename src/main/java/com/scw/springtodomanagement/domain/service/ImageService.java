@@ -1,9 +1,9 @@
 package com.scw.springtodomanagement.domain.service;
 
-import com.scw.springtodomanagement.common.errorcode.ImageErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.domain.controller.request.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.response.image.ImageResponseDTO;
+import com.scw.springtodomanagement.common.exception.errorcode.ImageErrorCode;
+import com.scw.springtodomanagement.domain.controller.image.ImageRequestDTO;
+import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Image;
 import com.scw.springtodomanagement.domain.entity.enums.ImageExtensionType;
 import com.scw.springtodomanagement.domain.repository.ImageRepository;
@@ -31,7 +31,7 @@ public class ImageService {
     private final ImageRepository imageRepository;
 
     @Transactional
-    public ImageResponseDTO uploadImage(ImageRequestDTO requestDTO) throws IOException {
+    public ImageResponseDTO save(ImageRequestDTO requestDTO) throws IOException {
         MultipartFile imageFile = requestDTO.getImageFile();
 
         if (imageFile.getOriginalFilename().isBlank()) {
@@ -60,7 +60,7 @@ public class ImageService {
                 .build();
     }
 
-    public Resource downloadImage(String UUIDFilename) throws IOException {
+    public Resource findById(String UUIDFilename) throws IOException {
         Image findImage = imageRepository.findByExtractFilenameOrElseThrow(UUIDFilename);
         String extractExtension = extractExt(findImage.getOriginalFilename());
 
@@ -87,6 +87,5 @@ public class ImageService {
     private String extractExt(String originalFileName) {
         return originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
     }
-
 
 }

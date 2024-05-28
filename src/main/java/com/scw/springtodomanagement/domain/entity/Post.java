@@ -1,7 +1,7 @@
 package com.scw.springtodomanagement.domain.entity;
 
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.entity.enums.StateType;
+import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -31,15 +31,15 @@ public class Post extends BaseTimeEntity {
     private String password;
 
     @Column(nullable = false)
-    private StateType stateType;
+    private PostStateType postStateType;
 
     @Builder
-    public Post(String title, String content, String managerEmail, String password, StateType stateType) {
+    public Post(String title, String content, String managerEmail, String password, PostStateType postStateType) {
         this.title = title;
         this.content = content;
         this.managerEmail = managerEmail;
         this.password = password;
-        this.stateType = stateType;
+        this.postStateType = postStateType;
     }
 
     public void updateTitle(PostUpdateRequestDTO requestDTO) {
@@ -48,7 +48,7 @@ public class Post extends BaseTimeEntity {
         this.managerEmail = requestDTO.getManagerEmail();
     }
 
-    public void deleteTitle(StateType stateType) {
-        this.stateType = stateType;
+    public void deleteTitle(PostStateType postStateType) {
+        this.postStateType = postStateType;
     }
 }
