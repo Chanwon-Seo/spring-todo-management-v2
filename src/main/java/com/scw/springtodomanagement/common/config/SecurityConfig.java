@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .requestMatchers(SWAGGER_PATTERNS).permitAll()
                 .requestMatchers("/api/v1/users/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/commends/**").permitAll()
                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
