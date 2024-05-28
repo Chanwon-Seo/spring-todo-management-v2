@@ -1,6 +1,7 @@
 package com.scw.springtodomanagement.domain.entity;
 
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.entity.enums.MemberRoleType;
 import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,28 +25,25 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String managerEmail;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @Column(nullable = false)
-    private String password;
-
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PostStateType postStateType;
 
     @Builder
-    public Post(String title, String content, String managerEmail, String password, PostStateType postStateType) {
+    public Post(String title, String content, Member member, PostStateType postStateType) {
         this.title = title;
         this.content = content;
-        this.managerEmail = managerEmail;
-        this.password = password;
+        this.member = member;
         this.postStateType = postStateType;
     }
 
     public void updateTitle(PostUpdateRequestDTO requestDTO) {
         this.title = requestDTO.getTitle();
         this.content = requestDTO.getContent();
-        this.managerEmail = requestDTO.getManagerEmail();
     }
 
     public void deleteTitle(PostStateType postStateType) {

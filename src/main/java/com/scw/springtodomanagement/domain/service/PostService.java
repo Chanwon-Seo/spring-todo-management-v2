@@ -1,15 +1,14 @@
 package com.scw.springtodomanagement.domain.service;
 
-import com.scw.springtodomanagement.common.exception.ApiException;
-import com.scw.springtodomanagement.common.exception.errorcode.PostErrorCode;
+import com.scw.springtodomanagement.common.exception.post.PostUnauthorizedException;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
-import com.scw.springtodomanagement.domain.entity.enums.DomainType;
+import com.scw.springtodomanagement.domain.entity.Member;
 import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
+import com.scw.springtodomanagement.domain.repository.MemberRepository;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.scw.springtodomanagement.common.exception.errorcode.PostErrorCode.POST_ALREADY_DELETED;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -28,41 +26,30 @@ import static com.scw.springtodomanagement.common.exception.errorcode.PostErrorC
 public class PostService {
 
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * create
-     * throw 도메인 검증 { google, naver, github}
+     * throw 도메인 검증 { google, naver, github }
      */
     @Transactional
-    public PostCreateResponseDTO createPost(final PostCreateRequestDTO requestDTO, String username) {
-        DomainType.fromDomainValidation(username);
-        Post savePost = postRepository.save(requestDTO.toPostDomain());
+    public PostCreateResponseDTO createPost(final PostCreateRequestDTO requestDTO, final String authUsername) {
 
-        return PostCreateResponseDTO.builder()
-                .id(savePost.getId())
-                .title(savePost.getTitle())
-                .content(savePost.getContent())
-                .managerEmail(savePost.getManagerEmail())
-                .createdAt(savePost.getCreatedAt())
-                .lastModifiedAt(savePost.getLastModifiedAt())
-                .build();
+        Member findMember = memberRepository.findByUsernameOrElseThrow(authUsername);
+
+        Post savePost = postRepository.save(requestDTO.toPostDomain(findMember));
+
+        return PostCreateResponseDTO.of(savePost);
     }
 
     /**
      * 단건 조회
      * throw 게시물 여부 검증
      */
-    public PostReadResponseDTO findPostById(Long id) {
+    public PostReadResponseDTO findPostById(final Long id) {
         Post findPostData = postRepository.findByIdOrElseThrow(id);
 
-        return PostReadResponseDTO.builder()
-                .id(findPostData.getId())
-                .title(findPostData.getTitle())
-                .content(findPostData.getContent())
-                .managerEmail(findPostData.getManagerEmail())
-                .createdAt(findPostData.getCreatedAt())
-                .lastModifiedAt(findPostData.getLastModifiedAt())
-                .build();
+        return PostReadResponseDTO.of(findPostData);
     }
 
     /**
@@ -77,26 +64,21 @@ public class PostService {
 
     /**
      * update
-     * throw 게시물 여부 검증능
+     * throw 게시물 여부 검증
      * throw 도메인 검증 { google, naver, github}
      */
     @Transactional
-    public PostUpdateResponseDTO updatePost(Long id, PostUpdateRequestDTO requestDTO) {
-        Post findPostData = postRepository.findByIdOrElseThrow(id);
-        DomainType.fromDomainValidation(requestDTO.getManagerEmail());
+    public PostUpdateResponseDTO updatePost(final Long postId, final PostUpdateRequestDTO requestDTO, final String authUsername) {
+        Member findMember = memberRepository.findByUsernameOrElseThrow(authUsername);
+        Post findPostData = postRepository.findByIdOrElseThrow(postId);
 
-        passwordValidation(requestDTO.getPassword(), findPostData.getPassword());
+        checkedUserPostAuthorValidate(findPostData.getId(), findMember.getId());
 
         findPostData.updateTitle(requestDTO);
-        return PostUpdateResponseDTO.builder()
-                .id(findPostData.getId())
-                .title(findPostData.getTitle())
-                .content(findPostData.getContent())
-                .managerEmail(findPostData.getManagerEmail())
-                .createdAt(findPostData.getCreatedAt())
-                .lastModifiedAt(findPostData.getLastModifiedAt())
-                .build();
+
+        return PostUpdateResponseDTO.of(findPostData);
     }
+
 
     /**
      * delete
@@ -104,24 +86,17 @@ public class PostService {
      * throw 비밀번호 동일 여부 검증
      */
     @Transactional
-    public void deletePost(Long id, PostDeleteRequestDTO requestDTO) {
+    public void deletePost(final Long id, String username) {
         Post findPostData = postRepository.findByIdOrElseThrow(id);
-
-        if (findPostData.getPostStateType().equals(PostStateType.DISABLE)) {
-            throw new ApiException(POST_ALREADY_DELETED);
-        }
-
-        passwordValidation(requestDTO.getPassword(), findPostData.getPassword());
+        Member findMemberData = memberRepository.findByUsernameOrElseThrow(username);
+        checkedUserPostAuthorValidate(findPostData.getId(), findMemberData.getId());
 
         findPostData.deleteTitle(PostStateType.DISABLE);
     }
 
-    /**
-     * 비밀번호 검증
-     */
-    private void passwordValidation(String inputPassword, String findPassword) {
-        if (!inputPassword.equals(findPassword)) {
-            throw new ApiException(PostErrorCode.PASSWORD_VERIFY_FAIL);
+    private void checkedUserPostAuthorValidate(Long postId, Long userId) {
+        if (!Objects.equals(postId, userId)) {
+            throw new PostUnauthorizedException();
         }
     }
 }

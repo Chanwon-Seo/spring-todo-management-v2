@@ -1,11 +1,9 @@
 package com.scw.springtodomanagement.domain.controller.image;
 
 
-import com.scw.springtodomanagement.common.statuscode.StatusCode;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.global.response.RestApiResponse;
-import com.scw.springtodomanagement.domain.controller.image.ImageRequestDTO;
-import com.scw.springtodomanagement.domain.controller.image.ImageResponseDTO;
+import com.scw.springtodomanagement.common.statuscode.StatusCode;
 import com.scw.springtodomanagement.domain.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

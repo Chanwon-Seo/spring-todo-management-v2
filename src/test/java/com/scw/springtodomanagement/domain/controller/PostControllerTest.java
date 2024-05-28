@@ -4,7 +4,6 @@ package com.scw.springtodomanagement.domain.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scw.springtodomanagement.domain.controller.post.*;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.service.PostService;
@@ -141,6 +140,7 @@ class PostControllerTest {
     void deletePost() throws Exception {
         // Given
         Long postId = 1L; // 삭제할 게시글의 ID
+
         PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
                 .password("1234asdf")
                 .build();

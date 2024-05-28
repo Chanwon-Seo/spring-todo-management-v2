@@ -5,7 +5,6 @@ import com.scw.springtodomanagement.common.global.response.RestApiResponse;
 import com.scw.springtodomanagement.common.security.AuthenticationUser;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.controller.post.request.PostDeleteRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
@@ -45,10 +44,10 @@ public class PostController {
     })
     @PostMapping
     public ResponseEntity<RestApiResponse<PostCreateResponseDTO>> createPost(
-            @AuthenticationPrincipal AuthenticationUser authenticationUser,
+            @AuthenticationPrincipal AuthenticationUser authenticationPrincipal,
             @Valid @RequestBody PostCreateRequestDTO requestDTO
     ) {
-        PostCreateResponseDTO savePost = postService.createPost(requestDTO, authenticationUser.getUsername());
+        PostCreateResponseDTO savePost = postService.createPost(requestDTO, authenticationPrincipal.getUsername());
 
         return ResponseEntity.status(CREATED.code)
                 .body(RestApiResponse.of(CREATED.code, savePost));
@@ -90,9 +89,10 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<RestApiResponse<PostUpdateResponseDTO>> updatePost(
             @PathVariable Long id,
-            @Valid @RequestBody PostUpdateRequestDTO requestDTO
+            @Valid @RequestBody PostUpdateRequestDTO requestDTO,
+            @AuthenticationPrincipal AuthenticationUser authenticationUser
     ) {
-        PostUpdateResponseDTO updatePost = postService.updatePost(id, requestDTO);
+        PostUpdateResponseDTO updatePost = postService.updatePost(id, requestDTO, authenticationUser.getUsername());
         return ResponseEntity.status(OK.code)
                 .body(RestApiResponse.of(updatePost));
     }
@@ -107,11 +107,11 @@ public class PostController {
     @DeleteMapping("/{id}")
     public ResponseEntity<RestApiResponse<Object>> deletePost(
             @PathVariable Long id,
-            @RequestBody PostDeleteRequestDTO requestDTO
+            @AuthenticationPrincipal AuthenticationUser authenticationUser
     ) {
-        postService.deletePost(id, requestDTO);
+        postService.deletePost(id, authenticationUser.getUsername());
 
         return ResponseEntity.status(OK.code)
-                .body(RestApiResponse.of("삭제되엇습니다."));
+                .body(RestApiResponse.of("삭제되었습니다."));
     }
 }

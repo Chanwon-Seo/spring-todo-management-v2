@@ -26,9 +26,20 @@ public class PostReadResponseDTO {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.managerEmail = post.getManagerEmail();
+        this.managerEmail = post.getMember().getUserName();
         this.createdAt = post.getCreatedAt();
         this.lastModifiedAt = post.getLastModifiedAt();
+    }
+
+    public static PostReadResponseDTO of(Post post) {
+        return PostReadResponseDTO.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .managerEmail(post.getMember().getUserName())
+                .createdAt(post.getCreatedAt())
+                .lastModifiedAt(post.getLastModifiedAt())
+                .build();
     }
 
 }

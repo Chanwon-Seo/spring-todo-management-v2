@@ -26,9 +26,19 @@ public class PostUpdateResponseDTO {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.managerEmail = post.getManagerEmail();
+        this.managerEmail = post.getMember().getUserName();
         this.createdAt = post.getCreatedAt();
         this.lastModifiedAt = post.getLastModifiedAt();
     }
 
+    public static PostUpdateResponseDTO of(final Post findPostData) {
+        return PostUpdateResponseDTO.builder()
+                .id(findPostData.getId())
+                .title(findPostData.getTitle())
+                .content(findPostData.getContent())
+                .managerEmail(findPostData.getMember().getUserName())
+                .createdAt(findPostData.getCreatedAt())
+                .lastModifiedAt(findPostData.getLastModifiedAt())
+                .build();
+    }
 }

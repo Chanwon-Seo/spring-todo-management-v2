@@ -1,9 +1,13 @@
 package com.scw.springtodomanagement;
 
 import com.scw.springtodomanagement.domain.entity.Image;
+import com.scw.springtodomanagement.domain.entity.Member;
+import com.scw.springtodomanagement.domain.entity.enums.MemberRoleType;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +28,8 @@ public class InitDB {
     @RequiredArgsConstructor
     static class InitService {
         private final EntityManager em;
+        @Autowired
+        PasswordEncoder passwordEncoder;
 
         public void dbInit1() {
 
@@ -31,6 +37,14 @@ public class InitDB {
                     Image.builder()
                             .originalFilename("test.png")
                             .extractFilename("0e040ae5-24bf-45e5-8b9d-ddbcad6e6d65")
+                            .build()
+            );
+            save(
+                    Member.builder()
+                            .nickName("새로운닉네임")
+                            .userName("newUser@gmail.com")
+                            .password(passwordEncoder.encode("sparta1234!"))
+                            .memberRoleType(MemberRoleType.USER)
                             .build()
             );
         }
