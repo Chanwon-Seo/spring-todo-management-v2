@@ -4,6 +4,7 @@ import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.common.exception.post.PostUnauthorizedException;
 import com.scw.springtodomanagement.domain.controller.attachedfile.response.AttachedFileCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.attachedfile.response.AttachedFileUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.commend.response.CommendReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostCreateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -35,6 +37,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final AttachedFileService attachedFileService;
+    private final CommendService commendService;
 
     /**
      * create
@@ -69,7 +72,6 @@ public class PostService {
      */
     public PostReadResponseDTO findPostById(final Long id) {
         Post findPostData = postRepository.findByIdOrElseThrow(id);
-
         return PostReadResponseDTO.of(findPostData);
     }
 
@@ -78,9 +80,8 @@ public class PostService {
      * 작성일 기준 내림차순
      */
     public List<PostReadResponseDTO> findAll() {
-        return postRepository.findAllByPostStateTypeOrderByCreatedAtDesc(PostStateType.ENABLE).stream()
-                .map(PostReadResponseDTO::new)
-                .toList();
+        List<Post> findAllPostData = postRepository.findAllByPostStateTypeOrderByCreatedAtDesc(PostStateType.ENABLE);
+        return PostReadResponseDTO.of(findAllPostData);
     }
 
     /**

@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Slf4j
@@ -31,6 +34,12 @@ public class Post extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PostStateType postStateType;
+
+    @OneToMany(mappedBy = "post")
+    private List<Commend> commendList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "post")
+    private AttachedFile attachedFile;
 
     @Builder
     public Post(String title, String content, Member member, PostStateType postStateType) {
