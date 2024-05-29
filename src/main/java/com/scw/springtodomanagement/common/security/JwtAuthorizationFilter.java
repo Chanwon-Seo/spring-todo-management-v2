@@ -1,12 +1,18 @@
 package com.scw.springtodomanagement.common.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.scw.springtodomanagement.common.exception.ApiException;
+import com.scw.springtodomanagement.common.exception.errorcode.MemberErrorCode;
+import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.jwt.JwtUtil;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,34 +30,34 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final AuthenticationUserService authenticationUserService;
+    private final ObjectMapper objectMapper;
 
-    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationUserService authenticationUserService) {
+    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationUserService authenticationUserService, ObjectMapper objectMapper) {
         this.jwtUtil = jwtUtil;
         this.authenticationUserService = authenticationUserService;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws ServletException, IOException {
 
-        // 헤더에서 AccessToken 및 RefreshToken 값을 가져옵니다.
         String accessTokenValue = jwtUtil.getAccessTokenFromHeader(req);
         String refreshTokenValue = jwtUtil.getRefreshTokenFromHeader(req);
-
+        log.info("asdfasdfadsfsd");
         if (StringUtils.hasText(accessTokenValue)) {
-            // AccessToken이 만료되었는지 확인합니다.
+            // Access 만료 체크
             if (!jwtUtil.validateToken(accessTokenValue)) {
                 log.error("Access Token이 만료되었습니다.");
 
-                // RefreshToken이 존재하고 유효한 경우, 새로운 AccessToken을 발급합니다.
+                // refresh 체크 및 유효성 검사
                 if (StringUtils.hasText(refreshTokenValue) && jwtUtil.validateToken(refreshTokenValue)) {
-                    // Refresh Token으로부터 사용자 정보를 추출하여 새로운 Access Token을 생성합니다.
+
                     String username = jwtUtil.getUserInfoFromToken(refreshTokenValue).getSubject();
                     String newAccessToken = jwtUtil.createAccessToken(username);
-                    // 응답 헤더에 새로운 Access Token을 설정합니다.
+
                     res.setHeader(ACCESS_TOKEN_HEADER, newAccessToken);
                     log.info("새로운 Access Token이 생성되어 응답 헤더에 설정되었습니다.");
 
-                    // 새로 발급한 Access Token으로 사용자를 인증합니다.
                     setAuthentication(username);
                 } else {
                     // Refresh Token이 존재하지 않거나 만료된 경우, 401 Unauthorized 응답을 전송합니다.
@@ -60,13 +66,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     return;
                 }
             } else {
-                // AccessToken이 유효한 경우, 해당 사용자를 인증합니다.
+                //access 유효한 경우
                 Claims info = jwtUtil.getUserInfoFromToken(accessTokenValue);
                 setAuthentication(info.getSubject());
             }
         }
 
-        // 다음 필터로 요청을 전달합니다.
         filterChain.doFilter(req, res);
     }
 

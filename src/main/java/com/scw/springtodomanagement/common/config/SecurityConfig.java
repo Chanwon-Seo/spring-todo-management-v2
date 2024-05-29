@@ -3,6 +3,7 @@ package com.scw.springtodomanagement.common.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scw.springtodomanagement.common.jwt.JwtUtil;
 import com.scw.springtodomanagement.common.security.AuthenticationUserService;
+import com.scw.springtodomanagement.common.security.JwtAuthenticationEntryPoint;
 import com.scw.springtodomanagement.common.security.JwtAuthenticationFilter;
 import com.scw.springtodomanagement.common.security.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final AuthenticationUserService authenticationUserService;
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,7 +55,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
-        return new JwtAuthorizationFilter(jwtUtil, authenticationUserService);
+        return new JwtAuthorizationFilter(jwtUtil, authenticationUserService, objectMapper);
     }
 
     @Bean
@@ -77,17 +79,12 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        // todo
-//        http.exceptionHandling()
-//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//            .accessDeniedHandler(accessDeniedEntryPoint);
-//        ;
+        http.exceptionHandling(exceptionHandling ->
+                exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        );
 
-//        http.logout((logout) ->
-//                logout.addLogoutHandler(jwtLogouthandler)
-//                        .logoutSuccessHandler(jwtLogoutSuccessHandler)
-//        );
-
+        //TODO
+        //로그아웃
         return http.build();
     }
 
