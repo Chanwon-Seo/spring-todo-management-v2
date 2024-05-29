@@ -1,5 +1,8 @@
 package com.scw.springtodomanagement.domain.controller.post.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.scw.springtodomanagement.domain.controller.attachedfile.response.AttachedFileCreateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.attachedfile.response.AttachedFileUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +25,9 @@ public class PostUpdateResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private AttachedFileUpdateResponseDTO attachedFileUpdateResponseDTO;
+
     public PostUpdateResponseDTO(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
@@ -31,7 +37,7 @@ public class PostUpdateResponseDTO {
         this.lastModifiedAt = post.getLastModifiedAt();
     }
 
-    public static PostUpdateResponseDTO of(final Post findPostData) {
+    public static PostUpdateResponseDTO of(final Post findPostData, AttachedFileUpdateResponseDTO attachedFileUpdateResponseDTO) {
         return PostUpdateResponseDTO.builder()
                 .id(findPostData.getId())
                 .title(findPostData.getTitle())
@@ -39,6 +45,7 @@ public class PostUpdateResponseDTO {
                 .managerEmail(findPostData.getMember().getUserName())
                 .createdAt(findPostData.getCreatedAt())
                 .lastModifiedAt(findPostData.getLastModifiedAt())
+                .attachedFileUpdateResponseDTO(attachedFileUpdateResponseDTO)
                 .build();
     }
 }

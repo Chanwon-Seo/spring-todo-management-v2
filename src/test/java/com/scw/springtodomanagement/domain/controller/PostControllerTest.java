@@ -121,8 +121,6 @@ class PostControllerTest {
         PostUpdateRequestDTO requestDTO = PostUpdateRequestDTO.builder()
                 .title("제목1")
                 .content("내용1")
-                .managerEmail("test1@gmail.com")
-                .password("1234asdf")
                 .build();
 
         //when
@@ -141,14 +139,10 @@ class PostControllerTest {
         // Given
         Long postId = 1L; // 삭제할 게시글의 ID
 
-        PostDeleteRequestDTO requestDTO = PostDeleteRequestDTO.builder()
-                .password("1234asdf")
-                .build();
-
         // When
         mockMvc.perform(delete("/api/v1/posts/{id}", postId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDTO)))
+                        .content(objectMapper.writeValueAsString(1L)))
                 .andExpect(status().isOk());
 
     }

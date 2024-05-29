@@ -1,7 +1,6 @@
 package com.scw.springtodomanagement.domain.entity;
 
 import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.entity.enums.MemberRoleType;
 import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,8 +41,8 @@ public class Post extends BaseTimeEntity {
     }
 
     public void updateTitle(PostUpdateRequestDTO requestDTO) {
-        this.title = requestDTO.getTitle();
-        this.content = requestDTO.getContent();
+        this.title = requestDTO.title();
+        this.content = requestDTO.content();
     }
 
     public void deleteTitle(PostStateType postStateType) {
