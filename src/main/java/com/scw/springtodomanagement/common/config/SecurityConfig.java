@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import static com.scw.springtodomanagement.common.consts.SwaggerConstants.SWAGGER_PATTERNS;
 
 @Configuration
-@EnableWebSecurity(debug = true) //TODO
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
