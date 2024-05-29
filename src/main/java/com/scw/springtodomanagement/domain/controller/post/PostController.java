@@ -8,6 +8,7 @@ import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateReq
 import com.scw.springtodomanagement.domain.controller.post.response.PostCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.service.AttachedFileService;
 import com.scw.springtodomanagement.domain.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,18 +35,19 @@ import static com.scw.springtodomanagement.common.statuscode.StatusCode.*;
 public class PostController {
 
     private final PostService postService;
+    private final AttachedFileService attachedFileService;
 
     @Operation(summary = "게시글 등록", description = "게시글을 등록하기 위한 Api\nschema에 있는 정보는 모두 필수 값이어야 합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "CREATED"),
-            @ApiResponse(responseCode = "400", description = "1.필수 요청 정보가 비어있을 경우\n\n" +
+            @ApiResponse(responseCode = "400", description = "1.필수 요청 정보가 비어있을 경우(첨부파일은 제외)\n\n" +
                     "2. gmail.com, naver.com, github.com 이 외에 지원하지 않는 이메일\n\n(응답 결과에 data는 없음)",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     @PostMapping
     public ResponseEntity<RestApiResponse<PostCreateResponseDTO>> createPost(
             @AuthenticationPrincipal AuthenticationUser authenticationPrincipal,
-            @Valid @RequestBody PostCreateRequestDTO requestDTO
+            @Valid @ModelAttribute PostCreateRequestDTO requestDTO
     ) {
         PostCreateResponseDTO savePost = postService.createPost(requestDTO, authenticationPrincipal.getUsername());
 
@@ -89,7 +91,7 @@ public class PostController {
     @PutMapping("/{id}")
     public ResponseEntity<RestApiResponse<PostUpdateResponseDTO>> updatePost(
             @PathVariable Long id,
-            @Valid @RequestBody PostUpdateRequestDTO requestDTO,
+            @Valid @ModelAttribute PostUpdateRequestDTO requestDTO,
             @AuthenticationPrincipal AuthenticationUser authenticationUser
     ) {
         PostUpdateResponseDTO updatePost = postService.updatePost(id, requestDTO, authenticationUser.getUsername());
