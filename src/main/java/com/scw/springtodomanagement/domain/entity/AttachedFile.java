@@ -18,7 +18,10 @@ public class AttachedFile extends BaseTimeCreateEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String filename;
+    private String originalFilename;
+
+    @Column(nullable = false)
+    private String UUIDFilename;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -40,11 +43,12 @@ public class AttachedFile extends BaseTimeCreateEntity {
 
     @Builder
     public AttachedFile(
-            String filename, ImageExtensionType imageExtensionType,
+            String originalFilename, String UUIDFilename, ImageExtensionType imageExtensionType,
             Integer fileSize, byte[] attachedContent, Post post,
             AttacheFileStatueType attacheFileStatueType
     ) {
-        this.filename = filename;
+        this.originalFilename = originalFilename;
+        this.UUIDFilename = UUIDFilename;
         this.imageExtensionType = imageExtensionType;
         this.fileSize = fileSize;
         this.attachedContent = attachedContent;
@@ -53,7 +57,8 @@ public class AttachedFile extends BaseTimeCreateEntity {
     }
 
     public void updateAttachedFile(AttachedFile updateAttachedFileData) {
-        this.filename = updateAttachedFileData.getFilename();
+        this.originalFilename = updateAttachedFileData.getOriginalFilename();
+        this.UUIDFilename = updateAttachedFileData.UUIDFilename;
         this.imageExtensionType = updateAttachedFileData.getImageExtensionType();
         this.fileSize = updateAttachedFileData.fileSize;
         this.attachedContent = updateAttachedFileData.attachedContent;

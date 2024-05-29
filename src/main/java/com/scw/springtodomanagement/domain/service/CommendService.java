@@ -7,7 +7,9 @@ import com.scw.springtodomanagement.common.exception.errorcode.commend.CommendUn
 import com.scw.springtodomanagement.domain.controller.commend.request.CommendCreateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.commend.request.CommendUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.commend.response.CommendCreateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.commend.response.CommendReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.commend.response.CommendUpdateResponseDTO;
+import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Commend;
 import com.scw.springtodomanagement.domain.entity.Member;
 import com.scw.springtodomanagement.domain.entity.Post;
@@ -19,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -45,7 +49,7 @@ public class CommendService {
     public CommendUpdateResponseDTO updateCommend(Long postId, Long commendId, CommendUpdateRequestDTO requestDTO, String username) {
 
         Member findMember = memberRepository.findByUsernameOrElseThrow(username);
-        Post findPost = postRepository.findByIdOrElseThrow(postId);
+        postRepository.findByIdOrElseThrow(postId);
 
         Commend findCommend = commendRepository.findByIdOrElseThrow(commendId);
 
@@ -58,7 +62,7 @@ public class CommendService {
     @Transactional
     public void deleteCommend(Long postId, Long commendId, String username) {
         Member findMember = memberRepository.findByUsernameOrElseThrow(username);
-        Post findPost = postRepository.findByIdOrElseThrow(postId);
+        postRepository.findByIdOrElseThrow(postId);
 
         Commend findCommend = commendRepository.findByIdOrElseThrow(commendId);
 
@@ -70,7 +74,6 @@ public class CommendService {
 
         findCommend.updateCommendStatusType(CommendStatusType.DISABLE);
     }
-
     private static void checkedCommendAuthorValidate(Commend findCommend, Member findMember) {
         if (!findCommend.getMember().getId().equals(findMember.getId())) {
             throw new CommendUnauthorizedException();

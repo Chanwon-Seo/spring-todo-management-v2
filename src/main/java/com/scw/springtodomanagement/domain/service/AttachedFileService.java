@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -60,10 +61,12 @@ public class AttachedFileService {
         String originalFilename = imageFile.getOriginalFilename();
         String onlyFilename = validateImageFileName(originalFilename);
         ImageExtensionType imageExtensionType = validateImageExtension(originalFilename);
+        String uuidFilename = createUUIDFilename();
 
         try {
             return AttachedFile.builder()
-                    .filename(onlyFilename)
+                    .originalFilename(onlyFilename)
+                    .UUIDFilename(uuidFilename)
                     .imageExtensionType(imageExtensionType)
                     .fileSize(imageFile.getBytes().length)
                     .attachedContent(imageFile.getBytes())
@@ -89,6 +92,10 @@ public class AttachedFileService {
             throw new ApiException(AttachedFileErrorCode.INVALID_FILENAME);
         }
         return result;
+    }
+
+    private String createUUIDFilename() {
+        return UUID.randomUUID().toString();
     }
 
 }
