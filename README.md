@@ -1,6 +1,9 @@
 # 필독
 - 해야 할 일 `post` 
 - 이미지 `Image`
+- 댓글 `Commend`
+- 회원 `Member`
+- 로그인 기록 `MemberLoginHistory`
 - 요구사항 이 외에 추가 사항
   - 담당자의 이메일은 `gamil.com`, `naver.com`, `github.com` 도메인으로만 게시글을 작성할 수 있다.
   - 비밀번호는 숫자, 문자, 특수문자를 포함한 8자 이상 게시글을 작성할 수 있다.
