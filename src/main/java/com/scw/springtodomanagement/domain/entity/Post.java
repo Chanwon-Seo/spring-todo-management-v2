@@ -1,10 +1,13 @@
 package com.scw.springtodomanagement.domain.entity;
 
-import com.scw.springtodomanagement.domain.controller.request.PostUpdateRequestDTO;
-import com.scw.springtodomanagement.domain.entity.enums.StateType;
+import com.scw.springtodomanagement.domain.controller.post.request.PostUpdateRequestDTO;
+import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,31 +27,34 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String managerEmail;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String password;
+    private PostStateType postStateType;
 
-    @Column(nullable = false)
-    private StateType stateType;
+    @OneToMany(mappedBy = "post")
+    private List<Commend> commendList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "post")
+    private AttachedFile attachedFile;
 
     @Builder
-    public Post(String title, String content, String managerEmail, String password, StateType stateType) {
+    public Post(String title, String content, Member member, PostStateType postStateType) {
         this.title = title;
         this.content = content;
-        this.managerEmail = managerEmail;
-        this.password = password;
-        this.stateType = stateType;
+        this.member = member;
+        this.postStateType = postStateType;
     }
 
     public void updateTitle(PostUpdateRequestDTO requestDTO) {
-        this.title = requestDTO.getTitle();
-        this.content = requestDTO.getContent();
-        this.managerEmail = requestDTO.getManagerEmail();
+        this.title = requestDTO.title();
+        this.content = requestDTO.content();
     }
 
-    public void deleteTitle(StateType stateType) {
-        this.stateType = stateType;
+    public void deleteTitle(PostStateType postStateType) {
+        this.postStateType = postStateType;
     }
 }

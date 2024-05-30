@@ -15,11 +15,14 @@ https://documenter.getpostman.com/view/19675174/2sA3JT1dNf
 http://localhost:8080/swagger-ui/index.html#/
 
 
-### Use-case-Diagram
+### Use-case-Diagram v1
 ![use-case-diagram .png](use-case-diagram%20.png)
 
-### ER-Diagram
+### ER-Diagram v1
 ![er-diagram.png](er-diagram.png)
+
+### ER-Diagram v2
+![er-diagram-v2.png](er-diagram-v2.png)
 
 ### Jacoco
 ![jacoco-code-coverage.png](jacoco-code-coverage.png)
@@ -27,7 +30,7 @@ http://localhost:8080/swagger-ui/index.html#/
 
 ![jacoco-test.png](jacoco-test.png)
 
-## 예외
+## 예외 v1
 - **공통 예외**
   - GlobalExceptionHandler : 공통 로직 및 하위 handler에서 잡지 못한 예외 처리
   - ValidExceptionHandler : DTO에서 입력 받은 값을 검증 상태 코드 및 에러 메시지는 Enum으로 관리 
@@ -50,3 +53,35 @@ http://localhost:8080/swagger-ui/index.html#/
     - 요청 정보에 이미지가 없는 경우
   - **이미지 다운로드**
     - 등록된 이미지 정보가 아닌 경우
+
+## 예외 v2
+- `예외 v2`는 `예외 v1`을 포함한 `추가 요구사항`입니다.
+- `등록`, `수정`, `삭제` 요청 `header`에 `JWT`가 없거나 만료된 경우
+- **로그인**
+  - 로그인 요청
+    - 필수 요청 정보가 비어있는 경우
+    - 회원가입을 하지 않은 회원인 경우
+  - **회원가입**
+    - 지정된 도메인 이 외에 등록하는 경우
+    - 비밀번호의 입력조건이 맞지 않는 경우
+  - **댓글**
+    - **댓글 등록**
+      - 필수 요청 정보가 비어있는 경우
+      - 해당 게시글이 작성된 게시글이 아닌 경우
+      - 해당 게시글이 삭제된 경우
+    - **댓글 수정**
+      - 필수 요청 정보가 비어있는 경우
+      - 해당 게시글이 작성된 게시글이 아닌 경우
+      - 해당 게시글이 삭제 된 경우
+      - 수정 권한이 없는 경우
+    - **댓글 삭제**
+      - 해당 게시글이 삭제 된 경우
+      - 삭제 권한이 없는 경우
+  - **첨부파일**
+    - **첨부파일 등록**
+      - 해당 게시글이 삭제 된 경우
+      - 해당 게시글을 작성할 권한이 없는 경우
+    - **첨부파일 수정**
+      - 해당 게시글이 삭제 된 경우
+      - 해당 게시글을 수정할 권한이 없는 경우
+  

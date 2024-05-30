@@ -1,6 +1,6 @@
 package com.scw.springtodomanagement.domain.repository;
 
-import com.scw.springtodomanagement.common.errorcode.ImageErrorCode;
+import com.scw.springtodomanagement.common.exception.errorcode.ImageErrorCode;
 import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.domain.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
