@@ -5,6 +5,8 @@ import com.scw.springtodomanagement.common.exception.errorcode.ErrorCode;
 import com.scw.springtodomanagement.common.exception.global.GlobalDuplicateException;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -22,8 +24,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-        log.error("[handleMethodArgumentTypeMismatchException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
-
+        log.error("{}", e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(CommonErrorCode.BAD_REQUEST);
 
         return ResponseEntity.status(errorResponse.getCode())
@@ -35,8 +36,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        log.error("handleHttpRequestMethodNotSupportedException", e);
-
+        log.error("{}", e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(CommonErrorCode.METHOD_NOT_ALLOWED);
 
         return ResponseEntity.status(errorResponse.getCode())
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     protected ResponseEntity handleNoResourceFoundException(NoResourceFoundException e) {
         log.error("[handleNoResourceFoundException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
-
+        log.error("{}", e.getMessage());
         ErrorResponse errorResponse = ErrorResponse.of(CommonErrorCode.NOT_FOUND);
 
         return ResponseEntity.status(errorResponse.getCode())
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 
         String name = e.getClass().getSimpleName();
         log.error("GlobalDuplicateException해당 클래스입니다. {}", name);
-
+        log.error("{}", e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
                 .body(ErrorResponse.of(errorCode));
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     protected ResponseEntity handleException(Exception e) {
         log.error("[handleException] cause: {} , message: {}", NestedExceptionUtils.getMostSpecificCause(e), e.getMessage());
-
+        log.error("{}", e.getMessage());
 
         ErrorResponse errorResponse = ErrorResponse.of(CommonErrorCode.SERVER_ERROR);
 

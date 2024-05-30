@@ -43,7 +43,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         String accessTokenValue = jwtUtil.getAccessTokenFromHeader(req);
         String refreshTokenValue = jwtUtil.getRefreshTokenFromHeader(req);
-        log.info("asdfasdfadsfsd");
+
         if (StringUtils.hasText(accessTokenValue)) {
             // Access 만료 체크
             if (!jwtUtil.validateToken(accessTokenValue)) {

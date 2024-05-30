@@ -28,6 +28,7 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class ImageService {
 
+
     private final ImageRepository imageRepository;
 
     @Transactional

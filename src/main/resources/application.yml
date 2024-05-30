@@ -28,7 +28,8 @@ spring:
           useUnicode: true
 
 logging.level:
-  org.hibernate.SQL: debug
+    root: error
+#    org.hibernate.SQL: debug
   #org.hibernate.type: trace
 
 ---

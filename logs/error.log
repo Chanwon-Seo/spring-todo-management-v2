@@ -1,0 +1,3 @@
+2024-05-30 14:01:43 ERROR [http-nio-8080-exec-3] 로그인 및 JWT 생성 - 로그인 실패
+2024-05-30 14:02:36 ERROR [http-nio-8080-exec-1] c.s.s.common.aop.LoggingAspect - 예외 발생 AOP 이미 가입한 유저입니다.
+2024-05-30 14:02:36 ERROR [http-nio-8080-exec-1] ApiException - 이미 가입한 유저입니다.

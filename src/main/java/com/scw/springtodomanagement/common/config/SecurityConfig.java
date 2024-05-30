@@ -6,6 +6,8 @@ import com.scw.springtodomanagement.common.security.AuthenticationUserService;
 import com.scw.springtodomanagement.common.security.JwtAuthenticationEntryPoint;
 import com.scw.springtodomanagement.common.security.JwtAuthenticationFilter;
 import com.scw.springtodomanagement.common.security.JwtAuthorizationFilter;
+import com.scw.springtodomanagement.domain.repository.MemberLoginHistoryRepository;
+import com.scw.springtodomanagement.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +18,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,6 +35,8 @@ public class SecurityConfig {
     private final AuthenticationUserService authenticationUserService;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final MemberRepository memberRepository;
+    private final MemberLoginHistoryRepository memberLoginHistoryRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -48,7 +51,8 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(objectMapper, jwtUtil);
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(objectMapper, jwtUtil,
+                memberLoginHistoryRepository, memberRepository);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
         return filter;
     }

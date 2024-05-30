@@ -15,6 +15,6 @@ public interface AttachedFileRepository extends JpaRepository<AttachedFile, Long
 
     default AttachedFile findByAttachedFileOrElseThrow(Post post) {
         return findByPost(post).orElseThrow(() ->
-                new ApiException(AttachedFileErrorCode.NOT_FOUND_COMMEND));
+                new ApiException(AttachedFileErrorCode.NOT_FOUND_ATTACHEDFILE));
     }
 }

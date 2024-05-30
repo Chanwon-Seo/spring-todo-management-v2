@@ -13,16 +13,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@Slf4j
+@Slf4j(topic = "ApiException")
 @Order(1)
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
     /**
      * Api 요청에 동작 중 예외가 발생한 경우
      */
     @ExceptionHandler(ApiException.class)
     protected ResponseEntity<ErrorResponse> apiException(ApiException e) {
-        log.error("", e);
+        log.error("{}", e.getMessage());
 
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
@@ -32,9 +33,8 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MemberDuplicateException.class)
     protected ResponseEntity<ErrorResponse> memberDuplicateException(MemberDuplicateException e) {
 
-        String name = e.getClass().getSimpleName();
-        log.error("MemberDuplicateException 해당 클래스입니다. {}", name);
-
+//        String name = e.getClass().getSimpleName();
+        log.error("{}", e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
                 .body(ErrorResponse.of(errorCode));
@@ -44,7 +44,7 @@ public class ApiExceptionHandler {
     protected ResponseEntity<ErrorResponse> postUnauthorizedException(PostUnauthorizedException e) {
 
         String name = e.getClass().getSimpleName();
-        log.error("PostUnauthorizedException 해당 클래스입니다. {}", name);
+        log.error("{}", e.getMessage());
 
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
@@ -55,8 +55,8 @@ public class ApiExceptionHandler {
     protected ResponseEntity<ErrorResponse> commendUnauthorizedException(CommendUnauthorizedException e) {
 
         String name = e.getClass().getSimpleName();
-        log.error("CommendUnauthorizedException 해당 클래스입니다. {}", name);
-
+//        log.error("CommendUnauthorizedException 해당 클래스입니다. {}", name);
+        log.error("{}", e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
                 .body(ErrorResponse.of(errorCode));
@@ -66,8 +66,8 @@ public class ApiExceptionHandler {
     protected ResponseEntity<ErrorResponse> loginUserNotFoundException(LoginUserNotFoundException e) {
 
         String name = e.getClass().getSimpleName();
-        log.error("LoginUserNotFoundException 해당 클래스입니다. {}", name);
-
+//        log.error("LoginUserNotFoundException 해당 클래스입니다. {}", name);
+        log.error("{}", e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
         return ResponseEntity.status(errorCode.getHttpStatusCode())
                 .body(ErrorResponse.of(errorCode));
