@@ -29,15 +29,11 @@ public class Member extends BaseTimeCreateEntity {
     @Column(name = "email", nullable = false)
     private String userName;
 
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
     private MemberRoleType memberRoleType;
-
-    @Column(name = "sign_up_date", updatable = false)
-    @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
 
     @Builder
     public Member(String nickName, String userName, String password, MemberRoleType memberRoleType) {
