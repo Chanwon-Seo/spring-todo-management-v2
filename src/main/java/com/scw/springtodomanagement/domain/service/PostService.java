@@ -11,9 +11,12 @@ import com.scw.springtodomanagement.domain.controller.post.response.PostCreateRe
 import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.post.response.PostUpdateResponseDTO;
 import com.scw.springtodomanagement.domain.entity.AttachedFile;
+import com.scw.springtodomanagement.domain.entity.Commend;
 import com.scw.springtodomanagement.domain.entity.Member;
 import com.scw.springtodomanagement.domain.entity.enums.AttacheFileStatueType;
+import com.scw.springtodomanagement.domain.entity.enums.CommendStatusType;
 import com.scw.springtodomanagement.domain.entity.enums.PostStateType;
+import com.scw.springtodomanagement.domain.repository.CommendRepository;
 import com.scw.springtodomanagement.domain.repository.MemberRepository;
 import com.scw.springtodomanagement.domain.repository.PostRepository;
 import com.scw.springtodomanagement.domain.entity.Post;
@@ -37,7 +40,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final AttachedFileService attachedFileService;
-    private final CommendService commendService;
+    private final CommendRepository commendRepository;
 
     /**
      * create
@@ -123,10 +126,16 @@ public class PostService {
         Member findMemberData = memberRepository.findByUsernameOrElseThrow(username);
         checkedUserPostAuthorValidate(findPostData.getMember().getId(), findMemberData.getId());
 
-        AttachedFile findAttachedFile = attachedFileService.findByAttachedFile(findPostData);
+        Optional<AttachedFile> findAttachedFile = attachedFileService.findByAttachedFile(findPostData);
+
+        List<Commend> findCommend = commendRepository.findByPost(findPostData);
+        for (Commend commend : findCommend) {
+            commend.updateCommendStatusType(CommendStatusType.DISABLE);
+        }
 
         findPostData.deleteTitle(PostStateType.DISABLE);
-        findAttachedFile.deleteAttachedFile(AttacheFileStatueType.DISABLE);
+        findAttachedFile.ifPresent(attachedFile -> attachedFile.deleteAttachedFile(AttacheFileStatueType.DISABLE));
+
     }
 
     private void checkedUserPostAuthorValidate(Long postId, Long userId) {
