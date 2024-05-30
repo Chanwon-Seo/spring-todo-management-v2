@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -35,26 +36,30 @@ public class AttachedFileService {
 
     @Transactional
     public AttachedFileUpdateResponseDTO updateAttacheFile(MultipartFile multipartFile, Post post) {
-        AttachedFile findAttachedFileData = attachedFileRepository.findByAttachedFileOrElseThrow(post);
+        Optional<AttachedFile> findAttachedFileData = attachedFileRepository.findByPost(post);
 
+
+        //multipartFile이 존재한다면
         if (multipartFile != null) {
-            AttachedFile updateAttachedFileData = validateAttachedFile(multipartFile, post);
-            findAttachedFileData.updateAttachedFile(updateAttachedFileData);
-            return AttachedFileUpdateResponseDTO.of(findAttachedFileData);
+            //findAttachedFileData이 존재한다면 update
+            if (!findAttachedFileData.isEmpty()) {
+                AttachedFile updateAttachedFileData = validateAttachedFile(multipartFile, post);
+                findAttachedFileData.get().updateAttachedFile(updateAttachedFileData);
+
+            } else {
+                //findAttachedFileData이 존재하지 않는다면 save
+                saveAttachedFile(multipartFile, post);
+            }
+            return AttachedFileUpdateResponseDTO.of(findAttachedFileData.get());
         } else {
-            findAttachedFileData.deleteAttachedFile(AttacheFileStatueType.DISABLE);
+            findAttachedFileData.ifPresent(attachedFile -> attachedFile.deleteAttachedFile(AttacheFileStatueType.DISABLE));
             return null;
         }
     }
 
-    public AttachedFile findByAttachedFile(Post findPostData) {
-        AttachedFile findAttachedFile = attachedFileRepository.findByAttachedFileOrElseThrow(findPostData);
+    public Optional<AttachedFile> findByAttachedFile(Post findPostData) {
+        return attachedFileRepository.findByPost(findPostData);
 
-        if (findAttachedFile.getAttacheFileStatueType().equals(AttacheFileStatueType.DISABLE)) {
-            throw new ApiException(AttachedFileErrorCode.ATTACHED_FILE_ALREADY_DELETED);
-        }
-
-        return findAttachedFile;
     }
 
     public AttachedFile validateAttachedFile(MultipartFile imageFile, Post post) {

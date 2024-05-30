@@ -12,9 +12,4 @@ import java.util.Optional;
 public interface AttachedFileRepository extends JpaRepository<AttachedFile, Long> {
 
     Optional<AttachedFile> findByPost(Post post);
-
-    default AttachedFile findByAttachedFileOrElseThrow(Post post) {
-        return findByPost(post).orElseThrow(() ->
-                new ApiException(AttachedFileErrorCode.NOT_FOUND_ATTACHEDFILE));
-    }
 }

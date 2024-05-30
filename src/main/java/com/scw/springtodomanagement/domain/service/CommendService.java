@@ -2,14 +2,12 @@ package com.scw.springtodomanagement.domain.service;
 
 import com.scw.springtodomanagement.common.exception.ApiException;
 import com.scw.springtodomanagement.common.exception.errorcode.CommendErrorCode;
-import com.scw.springtodomanagement.common.exception.errorcode.MemberErrorCode;
 import com.scw.springtodomanagement.common.exception.errorcode.commend.CommendUnauthorizedException;
 import com.scw.springtodomanagement.domain.controller.commend.request.CommendCreateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.commend.request.CommendUpdateRequestDTO;
 import com.scw.springtodomanagement.domain.controller.commend.response.CommendCreateResponseDTO;
 import com.scw.springtodomanagement.domain.controller.commend.response.CommendReadResponseDTO;
 import com.scw.springtodomanagement.domain.controller.commend.response.CommendUpdateResponseDTO;
-import com.scw.springtodomanagement.domain.controller.post.response.PostReadResponseDTO;
 import com.scw.springtodomanagement.domain.entity.Commend;
 import com.scw.springtodomanagement.domain.entity.Member;
 import com.scw.springtodomanagement.domain.entity.Post;
