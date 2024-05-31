@@ -128,11 +128,6 @@ public class PostService {
 
         Optional<AttachedFile> findAttachedFile = attachedFileService.findByAttachedFile(findPostData);
 
-        List<Commend> findCommend = commendRepository.findByPost(findPostData);
-        for (Commend commend : findCommend) {
-            commend.updateCommendStatusType(CommendStatusType.DISABLE);
-        }
-
         findPostData.deleteTitle(PostStateType.DISABLE);
         findAttachedFile.ifPresent(attachedFile -> attachedFile.deleteAttachedFile(AttacheFileStatueType.DISABLE));
 
