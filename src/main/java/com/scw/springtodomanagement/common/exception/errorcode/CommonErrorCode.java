@@ -12,7 +12,9 @@ public enum CommonErrorCode implements ErrorCode {
     NOT_FOUND(StatusCode.BAD_REQUEST.code, "올바르지 않은 요청 URL입니다."),
     SERVER_ERROR(StatusCode.INTERNAL_SERVER_ERROR.code, "서버 에러입니다."),
     METHOD_NOT_ALLOWED(StatusCode.METHOD_NOT_ALLOWED.code, "올바르지 않는 요청 메소드입니다."),
-    JWT_NOT_FOUND(StatusCode.FORBIDDEN.code, "토큰을 찾을 수 없습니다.");;
+    JWT_NOT_FOUND(StatusCode.FORBIDDEN.code, "토큰을 찾을 수 없습니다."),
+    REISSUANCE_ACCESS_TOKEN(StatusCode.NOT_FOUND.code, "Access Token을 재발급하였습니다.")
+    ;
 
     private final Integer httpStatusCode;
     private final String description;
