@@ -2,6 +2,7 @@ package com.scw.springtodomanagement.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scw.springtodomanagement.common.exception.ApiException;
+import com.scw.springtodomanagement.common.exception.errorcode.CommonErrorCode;
 import com.scw.springtodomanagement.common.exception.errorcode.MemberErrorCode;
 import com.scw.springtodomanagement.common.global.response.ErrorResponse;
 import com.scw.springtodomanagement.common.jwt.JwtUtil;
@@ -55,10 +56,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                     String username = jwtUtil.getUserInfoFromToken(refreshTokenValue).getSubject();
                     String newAccessToken = jwtUtil.createAccessToken(username);
 
-                    res.setHeader(ACCESS_TOKEN_HEADER, newAccessToken);
-                    log.info("새로운 Access Token이 생성되어 응답 헤더에 설정되었습니다.");
-
-                    setAuthentication(username);
+                    unsuccessAccessTokenAndReissuance(res, newAccessToken);
+                    return;
                 } else {
                     // Refresh Token이 존재하지 않거나 만료된 경우, 401 Unauthorized 응답을 전송합니다.
                     log.error("Refresh Token이 없거나 만료되었습니다. 접근이 거부되었습니다.");
@@ -73,6 +72,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(req, res);
+    }
+
+    private void unsuccessAccessTokenAndReissuance(HttpServletResponse res, String newAccessToken) throws IOException {
+        log.info("새로운 Access Token이 생성되어 응답 헤더에 설정되었습니다.");
+
+        ErrorResponse errorResponse = ErrorResponse.of(CommonErrorCode.REISSUANCE_ACCESS_TOKEN);
+        String body = objectMapper.writeValueAsString(errorResponse);
+        res.setHeader(ACCESS_TOKEN_HEADER, newAccessToken);
+        res.setStatus(errorResponse.getCode());
+        res.setContentType("text/html;charset=UTF-8");
+        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        res.getWriter().write(body);
     }
 
 
